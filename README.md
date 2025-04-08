@@ -2,13 +2,17 @@
 
 ## Intro
 
-This `index.md` is a draft for GitHub preview while the project is in progress.
+**⚠️This `README.md` is a draft for GitHub preview while the project is in progress.**
 
-It will be replaced by a `README.md` to explain the project, as required by the project specification.
+It will be replaced by another `README.md` to explain the project, as required by the project specification.
 
 ## GitHub Repository
 
 https://github.com/Kaichao-Zheng/CITS5505-GroupProject
+
+⚠️**Please always work on `yourOwnBranch`, NOT on the `origin/main` branch, which should only be used for merging.**
+
+* The tutorial of `git` was covered in Lab 5.
 
 ## Group Members
 
@@ -30,7 +34,7 @@ https://github.com/Kaichao-Zheng/CITS5505-GroupProject
 |          | Week 9      | GUI Presentation     | [at 2:05pm, on 29 April, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
 |          | Week 10     | Feature Presentation | Pending                                                      |
 |          | Week 11     | Project Submission   | [at 11:59pm, on 16 May](https://lms.uwa.edu.au/webapps/blackboard/content/listContent.jsp?course_id=_101669_1&content_id=_4251653_1&mode=reset) |
-|          | Week 11     | Project Presentation |                                                              |
+|          | Week 12     | Project Presentation |                                                              |
 
 ## Specification
 
@@ -61,4 +65,4 @@ Build a data analytics application
 
 ## Mockup Idea
 
-![Mockup](E:\Study Abroad\Materials\CITS5505 Agile Web Development\Project\Project 2\img\Mockup.png)
+![Mockup](img\Mockup.png)
