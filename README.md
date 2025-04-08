@@ -65,4 +65,4 @@ Build a data analytics application
 
 ## Mockup Idea
 
-![Mockup](img\Mockup.png)
+![Mockup](img/Mockup.png)
