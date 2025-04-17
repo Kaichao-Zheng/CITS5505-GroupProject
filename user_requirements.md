@@ -125,12 +125,13 @@ A few ideas for your reference:
 
 The private GitHub repository must include a README.md file containing:
 
-* Purpose Description: A clear explanation of the purpose of the application, its intended users, and the design philosophy (engaging, effective, intuitive).
-* Team Member Table:
+* **Purpose Description**
 
-| UWA ID             | Name     | GitHub Username |
-| ------------------ | -------- | --------------- |
-| (example) 12345678 | Jane Doe | janedoe         |
+  A clear explanation of the purpose of the application, its intended users, and the design philosophy (engaging, effective, intuitive).
+
+* **Group Interaction**
+
+  `Commit`, `Pull request` and `Issue` tabs in GitHub should be properly addressed.
 
 ## 9. Test Instructions
 
