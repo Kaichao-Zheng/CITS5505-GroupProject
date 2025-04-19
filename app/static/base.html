@@ -20,7 +20,7 @@
 </head>
 <body>
     <!-- Navigation bar -->
-    <div class="show-border container my-3 rounded">
+    <div class="bd-helper container my-3 rounded">
         <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
             <div class="container-fluid">
                 <!-- Collapse button to toggle mobile navbar -->
@@ -28,9 +28,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- Website name linking to homepage -->
-                <a class="show-border navbar-brand mx-auto" href="base.html">Price Trend</a>
+                <a class="bd-helper navbar-brand mx-auto" href="{{ url_for('index') }}">Price Trend</a>
                 <!-- Navigation links -->
-                <div class="show-border collapse navbar-collapse" id="navbarNav">
+                <div class="bd-helper collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link {% block login_status %}{% endblock %}" href="#">Login</a>
