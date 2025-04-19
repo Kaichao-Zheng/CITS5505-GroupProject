@@ -1,5 +1,5 @@
-/* border helper */
+/* border helper: comment me out to remove all outlines */
 .bd-helper {
     border: 2px dashed red;
-    padding: 5px;
+    padding: 3px;
 }
