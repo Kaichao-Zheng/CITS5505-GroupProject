@@ -54,5 +54,5 @@ git clone https://github.com/Kaichao-Zheng/CITS5505-GroupProject.git
 | -------- | ----------------- | ------------------------------------------------- |
 | 24141207 | Kai Zheng         | [Kaichao-Zheng](https://github.com/Kaichao-Zheng) |
 | 24074951 | Tony Chu          | [TonyChyu](https://github.com/TonyChyu)           |
-| 24205163 | Kushan Jayasekera | Pending Invite                                    |
+| 24205163 | Kushan Jayasekera | [kushanuwa](https://github.com/kushanuwa)         |
 | 24112359 | Chang Liu         | [ChangLiu-UWA](https://github.com/ChangLiu-UWA)   |
