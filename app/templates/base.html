@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Price Trend</title>
+
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <div class="bd-helper container-md my-3">
+        <nav class="navbar rounded navbar-expand-md bg-light justify-content-center">
+            <div class="container-fluid">
+                <!-- Website name linking to homepage -->
+                <a class="bd-helper navbar-brand" href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" style="width:40px;" class="rounded-pill">
+                    Price Trend
+                </a>
+                <!-- Collapse button to toggle mobile navbar -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Navigation Menu -->
+                <div class="bd-helper collapse navbar-collapse" id="collapNavbar">
+                    <!-- Search bar-->
+                    <form class="bd-helper d-flex w-75 m-auto" action="{{ url_for('search') }}" method="get">
+                        <input class="form-control me-2" type="search" name="query" placeholder="Search">
+                        <button class="btn btn-outline-success" type="submit">
+                            <span class="bi bi-search"></span>
+                        </button>
+                    </form>
+                    <!-- Navigation links -->
+                    <ul class="bd-helper navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link {% block login_status %}{% endblock %}" href="{{ url_for('login') }}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% block upload_status %}{% endblock %}" href="#">Upload</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% block share_status %}{% endblock %}" href="#">Share</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Main content area for inheritance-->
+    <div class="bd-helper container-md my-3">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Ignore Python compiled bytecode directories in any path
+**/__pycache__/
+
+# Ignore bulk local virtual environment files
+venv/
