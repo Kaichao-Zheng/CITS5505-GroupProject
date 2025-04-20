@@ -47,19 +47,17 @@ price_predictor/
 │   │   ├── upload.py           # Data upload and management  
 │   │   ├── visualise.py        # Data visualisation and prediction  
 │   │   ├── share.py            # Data sharing logic  
-│  
-├── static/                    # Static files (JS, CSS, icons)  
-│   ├── css/  
-│   ├── js/  
-│  
-├── templates/                 # HTML templates (Jinja2)  
-│   ├── layout.html            # Base layout template  
-│   ├── intro.html             # Homepage  
-│   ├── login.html             # Login form  
-│   ├── register.html          # Registration form  
-│   ├── upload.html            # Upload page for merchants  
-│   ├── visualise.html         # Visualisation page with chart  
-│   ├── share.html             # Sharing interface  
+│   ├── static/                 # Static files (JS, CSS, icons)  
+│   |   ├── css/  
+│   |   ├── js/  
+│   ├── templates/              # HTML templates (Jinja2)  
+│       ├── layout.html         # Base layout template  
+│       ├── intro.html          # Homepage  
+│       ├── login.html          # Login form  
+│       ├── register.html       # Registration form  
+│       ├── upload.html         # Upload page for merchants  
+│       ├── visualise.html      # Visualisation page with chart  
+│       ├── share.html          # Sharing interface  
 │  
 ├── instance/                  # Configuration files and secrets  
 │   ├── config.py  
