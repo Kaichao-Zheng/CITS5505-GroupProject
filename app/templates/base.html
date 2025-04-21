@@ -45,13 +45,28 @@
                     <!-- Navigation links -->
                     <ul class="bd-helper navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link {% block login_status %}{% endblock %}" href="{{ url_for('login') }}">Login</a>
+                            <a class="nav-link {% block login_status %}{% endblock %}"
+                                href="#"
+                                data-bs-toggle="modal"
+                                data-bs-target="#loginModal">
+                                Login
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% block upload_status %}{% endblock %}" href="#">Upload</a>
+                            <a class="nav-link {% block upload_status %}{% endblock %}"
+                                href="#"
+                                data-bs-toggle="modal"
+                                data-bs-target="#uploadModal">
+                                Upload
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% block share_status %}{% endblock %}" href="#">Share</a>
+                            <a class="nav-link {% block share_status %}{% endblock %}"
+                                href="#"
+                                data-bs-toggle="modal"
+                                data-bs-target="#shareModal">
+                                Share
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -63,5 +78,18 @@
         {% block content %}
         {% endblock %}
     </div>
+    {# Render different modals #}
+
+    {% set modal_id = "loginModal" %}
+    {% set modal_title = "Log In" %}
+    {% include "modal.html" %}
+
+    {% set modal_id = "uploadModal" %}
+    {% set modal_title = "Upload" %}
+    {% include "modal.html" %}
+
+    {% set modal_id = "shareModal" %}
+    {% set modal_title = "Share" %}
+    {% include "modal.html" %}
 </body>
 </html>
