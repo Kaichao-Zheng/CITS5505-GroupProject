@@ -45,48 +45,115 @@
                     <!-- Navigation links -->
                     <ul class="bd-helper navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link " href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log in</a>
+                            <a class="nav-link {% block login_status %}{% endblock %}"
+                                href="#"
+                                data-bs-toggle="modal"
+                                data-bs-target="#loginModal">
+                                Login
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% block upload_status %}{% endblock %}" href="#">Upload</a>
+                            <a class="nav-link {% block upload_status %}{% endblock %}"
+                                href="#"
+                                data-bs-toggle="modal"
+                                data-bs-target="#uploadModal">
+                                Upload
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% block share_status %}{% endblock %}" href="#">Share</a>
+                            <a class="nav-link {% block share_status %}{% endblock %}"
+                                href="#"
+                                data-bs-toggle="modal"
+                                data-bs-target="#shareModal">
+                                Share
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
-    <!-- Popup -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-center w-100" id="loginModalLabel">Log in</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-            </div>
-            <div class="modal-body">
-              <!-- Login Form -->
-              <form>
-                <div class="mb-3">
-                  <label for="username" class="form-label">Username</label>
-                  <input type="text" class="form-control" id="username">
-                </div>
-                <div class="mb-3">
-                  <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="password">
-                </div>
-                <button type="submit" class="btn btn-primary">Log in</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- Main content area for inheritance-->
     <div class="bd-helper container-md my-3">
         <p>Placeholder page from templates/login.html</p>
+        <p>login.html has been refactored into a pop-up for every page.</p>
+        <p>This page will be removed soon.</p>
+    </div>
+    <!-- Render different modals using different params for templates/model.html -->
+    <!-- id = loginModal, modal_title = "Log In" -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Log In</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Modal content can be dynamic here -->
+                    <form>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- id = "uploadModal", modal_title = "Upload" -->
+    <div class="modal fade" id="uploadModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Modal content can be dynamic here -->
+                    <form>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- id = shareModal, modal_title = "Share" -->
+    <div class="modal fade" id="shareModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Share</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Modal content can be dynamic here -->
+                    <form>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
