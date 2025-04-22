@@ -78,18 +78,25 @@
         {% block content %}
         {% endblock %}
     </div>
-    {# Render different modals #}
-
+    {# ======================= Modal Render Section ======================= #}
+    {#  
+        Jinja2 is single inheritance model:
+        Each child template can extend only one parent template.
+        
+        For n:1 multiplicity,
+        I use "include" to insert templates
+        rather than "extends" to inherit them.
+    #}
+    
     {% set modal_id = "loginModal" %}
-    {% set modal_content = "modal_login.html" %}
-    {% include "modal.html" %}
+    {% include "modal_login.html" %}
 
     {% set modal_id = "uploadModal" %}
-    {% set modal_content = "modal_upload.html" %}
-    {% include "modal.html" %}
+    {% include "modal_upload.html" %}
 
     {% set modal_id = "shareModal" %}
-    {% set modal_content = "modal_share.html" %}
-    {% include "modal.html" %}
+    {% include "modal_share.html" %}
+
+    {# =================== End of Modal Render Section =================== #}
 </body>
 </html>
