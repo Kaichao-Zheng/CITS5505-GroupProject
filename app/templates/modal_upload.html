@@ -7,7 +7,19 @@
     </div>
     <div class="modal-body">
         <form>
-            Upload Placeholder here.
+            <div class="mb-3">
+                <label for="merchantSelect" class="form-label">Select a merchant</label>
+                <select class="form-select" id="merchantSelect" name="merchant">
+                    <option value="" disabled selected hidden>Select a merchant</option>
+                    <option value="merchant1">Coles</option>
+                    <option value="merchant2">Woolworths</option>
+                </select>
+            </div>
+            <div class="mb-3 file-upload-container">
+                <label for="fileUpload" class="form-label">Drag & Drop your CSV file here or browse</label>
+                <input type="file" class="form-control" id="csvUpload" name="file">
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
         </form>
     </div>
 {% endblock %}
