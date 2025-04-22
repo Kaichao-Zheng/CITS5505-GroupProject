@@ -22,8 +22,8 @@ git clone https://github.com/Kaichao-Zheng/CITS5505-GroupProject.git
 | -------- | ----------- | -------------------- | ------------------------------------------------------------ |
 |          | Week 6      | Project Release      |                                                              |
 |          | Week 7      | First Meeting        | at 3.00pm, on 08 April                                       |
-| ⌛        | Week 8      |                      |                                                              |
-|          | Study Break |                      |                                                              |
+|          | Week 8      |                      |                                                              |
+| ⌛        | Study Break |                      |                                                              |
 |          | Week 9      | GUI Presentation     | [at 2:05pm, on 1st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
 |          | Week 10     | Feature Presentation | [at 2:05pm, on 8st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
 |          | Week 11     | Project Submission   | [at 11:59pm, on 16 May](https://lms.uwa.edu.au/webapps/blackboard/content/listContent.jsp?course_id=_101669_1&content_id=_4251653_1&mode=reset) |
@@ -37,7 +37,7 @@ git clone https://github.com/Kaichao-Zheng/CITS5505-GroupProject.git
 
 ## Modular Reference
 
-![Mockup](img/modular_reference_annotation.png)
+![Mockup](app/static/mockup/mockups/modular_reference_annotation.png)
 
 ### Tech Stack
 
