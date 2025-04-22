@@ -81,15 +81,15 @@
     {# Render different modals #}
 
     {% set modal_id = "loginModal" %}
-    {% set modal_title = "Log In" %}
+    {% set modal_content = "modal_login.html" %}
     {% include "modal.html" %}
 
     {% set modal_id = "uploadModal" %}
-    {% set modal_title = "Upload" %}
+    {% set modal_content = "modal_upload.html" %}
     {% include "modal.html" %}
 
     {% set modal_id = "shareModal" %}
-    {% set modal_title = "Share" %}
+    {% set modal_content = "modal_share.html" %}
     {% include "modal.html" %}
 </body>
 </html>
