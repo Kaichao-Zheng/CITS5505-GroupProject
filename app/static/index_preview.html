@@ -100,14 +100,17 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                        <!-- Username input box -->
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username">
                         </div>
+                        <!-- Password input box -->
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password">
                         </div>
+                        <!-- Submit button -->
                         <button type="submit" class="btn btn-primary">Log in</button>
                     </form>
                 </div>
@@ -125,18 +128,20 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                        <!-- Merchant dropdown menu -->
                         <div class="mb-3">
-                            <label for="merchantSelect" class="form-label">Select a merchant</label>
-                            <select class="form-select" id="merchantSelect" name="merchant">
+                            <select class="form-select" name="merchantName">
                                 <option value="" disabled selected hidden>Select a merchant</option>
-                                <option value="merchant1">Coles</option>
-                                <option value="merchant2">Woolworths</option>
+                                <option value="Coles">Coles</option>
+                                <option value="Woolworths">Woolworths</option>
                             </select>
                         </div>
-                        <div class="mb-3 file-upload-container">
-                            <label for="fileUpload" class="form-label">Drag & Drop your CSV file here or browse</label>
-                            <input type="file" class="form-control" id="csvUpload" name="file">
+                        <!-- File upload area -->
+                        <div class="mb-3 position-relative border rounded bg-light text-center py-5">
+                            <label for="fileUpload" class="form-label text-muted">Drop your CSV file here, or click to browse for it.</label>
+                            <input type="file" name="csvfile" accept=".csv" class="form-control position-absolute top-0 start-0 w-100 h-100 opacity-0">
                         </div>
+                        <!-- Submit button -->
                         <button type="submit" class="btn btn-primary">Upload</button>
                     </form>
                 </div>
@@ -154,9 +159,11 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                        <!-- Certain features -->
                         <div class="mb-3">
                             Share placeholder here.
                         </div>
+                        <!-- Submit button -->
                         <button type="submit" class="btn btn-primary">Share</button>
                     </form>
                 </div>
