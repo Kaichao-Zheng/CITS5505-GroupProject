@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="navbar">
+    <button class="menu">&#9776;</button>
+    <span class="title">SmartAnalytics</span>
+    <input type="text" id="search" placeholder="Search Product">
+    <button onclick="searchProduct()">🔍</button>
+</div>
+
+<!-- Upload Product Price Data Section -->
+<div class="upload-container">
+    <h2>Upload Product Price Data</h2>
+
+    <label for="merchant">Select Merchant</label>
+    <select id="merchant">
+        <option value="coles">Coles</option>
+        <option value="woolworths">Woolworths</option>
+        <option value="spudshed">Spudshed</option>
+    </select>
+
+    <p class="format-hint">Accepted format: CSV (Product ID, Date, Price)</p>
+
+    <div class="upload-box">
+        <label for="csvFile">Drag & Drop your CSV file here or <strong>browse</strong></label>
+        <input type="file" id="csvFile" accept=".csv">
+    </div>
+
+    <button class="upload-btn" onclick="previewCSV()">Upload CSV</button>
+</div>
+
+<!-- Preview Section -->
+<div id="preview-section" style="display:none">
+    <h3>Preview data</h3>
+    <table>
+        <thead>
+            <tr><th>ProductName</th><th>Date</th><th>Price</th></tr>
+        </thead>
+        <tbody id="preview-body"></tbody>
+    </table>
+
+    <div class="progress-container">
+        <button class="upload-btn">Upload CSV</button>
+        <div class="progress-bar"><div id="progress" style="width: 25%;">25%</div></div>
+    </div>
+</div>
+
+<script>
+function previewCSV() {
+    const fileInput = document.getElementById('csvFile');
+    const previewSection = document.getElementById('preview-section');
+    const previewBody = document.getElementById('preview-body');
+
+    if (!fileInput.files.length) {
+        alert("Please select a CSV file.");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const rows = e.target.result.split("\n");
+        previewBody.innerHTML = "";
+        rows.forEach((row, index) => {
+            if (index === 0 || !row.trim()) return;
+            const [product, date, price] = row.split(",");
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td>${product}</td><td>${date}</td><td>${price}</td>`;
+            previewBody.appendChild(tr);
+        });
+        previewSection.style.display = 'block';
+    };
+    reader.readAsText(fileInput.files[0]);
+}
+</script>
+
+{% endblock %}
