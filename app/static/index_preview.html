@@ -25,7 +25,7 @@
         <nav class="navbar rounded navbar-expand-md bg-light justify-content-center">
             <div class="container-fluid">
                 <!-- Website name linking to homepage -->
-                <a class="bd-helper navbar-brand" href="index_preview.html">
+                <a class="navbar-brand" href="index_preview.html">
                     <img src="img/logo.png" alt="logo" style="width:40px;" class="rounded-pill">
                     Price Trend
                 </a>
@@ -34,16 +34,16 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- Navigation Menu -->
-                <div class="bd-helper collapse navbar-collapse" id="collapNavbar">
+                <div class="collapse navbar-collapse" id="collapNavbar">
                     <!-- Search bar-->
-                    <form class="bd-helper d-flex w-75 m-auto" action="search.html" method="get">
+                    <form class="d-flex w-75 m-auto" action="search.html" method="get">
                         <input class="form-control me-2" type="search" name="query" placeholder="Search">
                         <button class="btn btn-outline-success" type="submit">
                             <span class="bi bi-search"></span>
                         </button>
                     </form>
                     <!-- Navigation links -->
-                    <ul class="bd-helper navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <a class="nav-link {% block login_status %}{% endblock %}"
                                 href="#"
@@ -92,7 +92,7 @@
     <!-- id = loginModal, modal_title = "Log In" -->
     <div class="modal fade" id="loginModal" tabindex="-1">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="bd-helper modal-content">
                 <!-- Modal content can be dynamic here -->
                 <div class="modal-header">
                     <h5 class="modal-title">Log In</h5>
@@ -120,7 +120,7 @@
     <!-- id = uploadModal, modal_title = "Upload" -->
     <div class="modal fade" id="uploadModal" tabindex="-1">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="bd-helper modal-content">
                 <!-- Modal content can be dynamic here -->
                 <div class="modal-header">
                     <h5 class="modal-title">Upload</h5>
@@ -151,7 +151,7 @@
     <!-- id = shareModal, modal_title = "Share" -->
     <div class="modal fade" id="shareModal" tabindex="-1">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="bd-helper modal-content">
                 <!-- Modal content can be dynamic here -->
                 <div class="modal-header">
                     <h5 class="modal-title">Share</h5>
