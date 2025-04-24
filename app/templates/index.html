@@ -1,15 +1,82 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div>This is homepage for introduction</div>
-    <ul>
-        <li>The red outline are "border helper" for layout debugging, you can comment out CSS class to remove them</li>
-        <li>
-            The navigation bar above is inherited from templates/base.html
-            <ul>
-                <li>Placeholder pages for index, Search, Login are now available.</li>
-            </ul>
-        </li>
-        <li>This message is rendered by templates/index.html</li>
-    </ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartAnalytics</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #ffffff;
+      color: rgb(0, 0, 0);
+    }
+    .section-box {
+      border: 1px solid #444;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      height: 150px;
+      display: flex;
+      align-items: center;      
+      justify-content: center;  
+      text-align: center;
+    }
+    .btn-login {
+      background-color: green;
+      color: white;
+    }
+    .btn-register {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main Content -->
+  <main class="container mt-3">
+    <div class="section-box">
+      🔍 Search products and view historical price trends
+    </div>
+    <div class="section-box">
+      📊 Predict future prices with our forecasting system
+    </div>
+    <div class="section-box">
+      📁 Upload your pricing data to generate insights
+    </div>
+
+   <!-- Call to Action + Predict/Search/Share -->
+<div class="container my-4">
+    <div class="row align-items-center text-center text-md-start">
+      <!-- Left side: Call to Action -->
+      <div class="col-md-6 mb-3 mb-md-0">
+        <p>Ready to get started?</p>
+        <button class="btn btn-success me-2">Login</button>
+        <button class="btn btn-primary">Register</button>
+      </div>
+  
+      <!-- Right side: Icons -->
+      <div class="col-md-6 d-flex justify-content-center justify-content-md-end gap-4">
+        <div class="text-center">
+          <img src="{{ url_for('static', filename='img/predict-icon.jpg') }}" alt="Predict" width="40">
+          <p class="mb-0">Predict</p>
+        </div>
+        <div class="text-center">
+          <img src="{{ url_for('static', filename='img/search-icon.png') }}" alt="Search" width="40">
+          <p class="mb-0">Search</p>
+        </div>
+        <div class="text-center">
+          <img src="{{ url_for('static', filename='img/share-icon.jpg') }}" alt="Share" width="40">
+          <p class="mb-0">Share</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  </main>
+</body>
+</html>
+
 {% endblock %}

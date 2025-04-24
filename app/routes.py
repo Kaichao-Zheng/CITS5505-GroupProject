@@ -9,3 +9,7 @@ def index():
 @app.route('/search')
 def search():
     return render_template('search.html')
+
+@app.route('/product')
+def product():
+    return render_template('product.html')
