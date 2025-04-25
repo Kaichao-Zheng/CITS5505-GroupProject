@@ -10,6 +10,6 @@ def index():
 def search():
     return render_template('search.html')
 
-@app.route('/product')
-def product():
-    return render_template('product.html')
+@app.route('/stock')
+def stock():
+    return render_template('stock.html')
