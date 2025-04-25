@@ -1,5 +1,6 @@
 /* border helper: comment out to remove all outlines */
 /* Used to highlight inheritance structure borders */
 .bd-helper {
+    outline: 2px dashed red !important;
     padding: 3px;
 }
