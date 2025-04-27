@@ -19,6 +19,11 @@ This `README.md` will be replaced by another `README.md` to explain the project,
 |          | Week 11     | Project Submission   | [at 11:59pm, on 16 May](https://lms.uwa.edu.au/webapps/blackboard/content/listContent.jsp?course_id=_101669_1&content_id=_4251653_1&mode=reset) |
 |          | Week 12     | Group Presentation   |                                                              |
 
+## Installation
+* Use pip install -r requirements.txt to install the required dependancies
+* Use pip freeze > requirements.txt to update requirements.txt file after new dependancy is added
+
+
 ## High-Priority Tasks
 
 - [ ] Tony - Present search result page with dummy data.
