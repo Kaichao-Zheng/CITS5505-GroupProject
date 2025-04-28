@@ -56,15 +56,11 @@ pip freeze > requirements.txt
 * AJAX (CSR)
 * SQL-Alchemy (ORM for application-database interaction)
 
-## Modular Reference
-
-![Mockup](app/static/mockup/mockups/modular_reference_annotation.png)
-
 ## Group Members
 
-| UWA ID   | Student Name      | GitHub User Name                                  |
-| -------- | ----------------- | ------------------------------------------------- |
-| 24141207 | Kai Zheng         | [Kaichao-Zheng](https://github.com/Kaichao-Zheng) |
-| 24074951 | Tony Chu          | [TonyChyu](https://github.com/TonyChyu)           |
-| 24205163 | Kushan Jayasekera | [kushanuwa](https://github.com/kushanuwa)         |
-| 24112359 | Chang Liu         | [ChangLiu-UWA](https://github.com/ChangLiu-UWA)   |
+| UWA ID   | Student Name      | GitHub User Name                                             |
+| -------- | ----------------- | ------------------------------------------------------------ |
+| 24141207 | Kai Zheng         | [Kaichao-Zheng](https://github.com/Kaichao-Zheng)            |
+| 24074951 | Tony Chu          | [TonyChyu](https://github.com/TonyChyu)                      |
+| 24112359 | Chang Liu         | [ChangLiu-UWA](https://github.com/ChangLiu-UWA)              |
+| 24205163 | Kushan Jayasekera | [kushanuwa](https://github.com/kushanuwa)<br />[kushjayz](https://github.com/kushjayz) |

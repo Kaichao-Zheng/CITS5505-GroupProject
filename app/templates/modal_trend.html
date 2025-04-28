@@ -1,0 +1,15 @@
+{% extends "modal.html" %}
+
+{% block modal_content %}
+    <div class="modal-header">
+        <h5 class="modal-title">Trend</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <!-- AJAX from API -->
+            <label class="form-label">Placeholder</label>
+            <img src="{{ url_for('static', filename='mockup/mockups/Historical-Forecast-Prices.png') }}" alt="Placeholder">
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+.section-box {
+    background: linear-gradient(90deg, rgba(224, 247, 250, 0.8) 0%, rgba(179, 229, 252, 0.8) 35%, rgba(129, 212, 250, 0.8) 100%);
+    background-size: cover;         
+    background-position: center;    
+    background-repeat: no-repeat;   
+    height: 300px;                  
+    width: 100%;                    
+    border-radius: 10px;             
+    padding: 20px;
+    margin-bottom: 15px;
+}
+/* .btn-login {
+  background-color: green;
+  color: white;
+}
+.btn-register {
+  background-color: #007bff;
+  color: white;
+} */
