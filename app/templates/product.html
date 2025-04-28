@@ -1,25 +1,26 @@
+{% set enable_modal_trend = True %}
 {% extends "base.html" %}
 
 {% block import_CSS %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='product.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='product.css') }}">
 {% endblock %}
 
 {% block import_JS %}
-  <script src="{{ url_for('static', filename='product.js') }}"></script>
+    <script src="{{ url_for('static', filename='product.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-  <div class="row g-4" id="product-list">
-    <!-- Insert product cards here -->
-  </div>
+    <div class="row g-4" id="product-list">
+        <!-- Insert product cards here -->
+    </div>
 
-  <div class="text-center mt-4">
-    <button class="load-btn" onclick="loadMore()">Load more</button>
-  </div>
+    <div class="text-center mt-4">
+        <button class="btn btn-success rounded-pill px-4" onclick="loadMore()">Load more</button>
+    </div>
 {% endblock %}
 
 {#
-  To Tony,
-  The CSS code has been moved to "static/product.css"
-  The JS code has been moved to "static/product.js"
+    To Tony,
+    The CSS code has been moved to "static/product.css",
+    the JS code has been moved to "static/product.js"
 #}

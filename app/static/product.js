@@ -20,8 +20,13 @@ function loadMore(count = 6) {
         <div class="product-card">
             <div class="product-img">🖼</div>
             <p class="mt-2 mb-1">${mockProducts[i].name}</p>
-            <span class="badge badge-shop">Shop</span>
-            <button class="btn btn-sm btn-price float-end">View Trend</button>
+            <span class="badge bg-success">Shop</span>
+            <a class="btn btn-sm btn-primary float-end"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#trendModal">
+                View Trend
+            </a>
             <p class="mt-1 mb-0 text-white-50 small">&lt; Vendor with lowest price NOW &gt;</p>
         </div>
     `;

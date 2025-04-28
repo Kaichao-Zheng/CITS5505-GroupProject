@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
     {% block import_CSS %}
     {% endblock %}
     <!-- Bootstrap CSS -->
@@ -88,14 +88,6 @@
         {% endblock %}
     </div>
     {# ======================= Modal Render Section ======================= #}
-    {#  
-        Jinja2 is single inheritance model:
-        Each child template can extend only one parent template.
-        
-        For n:1 multiplicity,
-        I use "include" to insert templates
-        rather than "extends" to inherit them.
-    #}
     
     {% set modal_id = "loginModal" %}
     {% include "modal_login.html" %}
@@ -105,6 +97,11 @@
 
     {% set modal_id = "shareModal" %}
     {% include "modal_share.html" %}
+    
+    {% if enable_modal_trend %}
+        {% set modal_id = "trendModal" %}
+        {% include "modal_trend.html" %}
+    {% endif %}
 
     {# =================== End of Modal Render Section =================== #}
 </body>
