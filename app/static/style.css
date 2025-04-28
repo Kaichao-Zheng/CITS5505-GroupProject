@@ -25,11 +25,11 @@ body {
     margin-bottom: 15px;
 }
 
-  .btn-login {
-    background-color: green;
-    color: white;
-  }
-  .btn-register {
-    background-color: #007bff;
-    color: white;
-  }
+.btn-login {
+  background-color: green;
+  color: white;
+}
+.btn-register {
+  background-color: #007bff;
+  color: white;
+}
