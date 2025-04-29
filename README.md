@@ -32,6 +32,59 @@ Update `requirements.txt` file after new dependency is added
 pip freeze > requirements.txt
 ```
 
+## Create Test Database
+
+💬**SQLite Viewer** is a light-weight GUI Extension in VSCode
+
+**Dependency**
+
+```bash
+pip install flask
+pip install flask_sqlalchemy
+pip install python-dotenv
+```
+
+Run Flask Shell in terminal
+
+```bash
+flask shell
+```
+
+Create a new SQLite database at `instance/site.db`
+
+```bash
+>>> db.create_all()
+```
+
+Insert the first row in user table
+
+```bash
+>>> u = User(id='1', employee_id='001', merchant_id='001', user_type='Merchant', username='kai', email='CITS5505@student.uwa', password_hash='asdfghjkl')
+>>> db.session.add(u)
+>>> db.session.commit()
+```
+
+Query: `SELECT * FROM user;`
+
+```bash
+>>> query = sa.select(User)
+>>> users = db.session.scalars(query).all()
+>>> Users
+[<User 1>]
+```
+
+```bash
+>>> users[0].username
+'kai'
+```
+
+Delete the user `where id='1'`
+
+```bash
+>>> user = User.query.get(1)
+>>> db.session.delete(user)
+>>> db.session.commit()
+```
 
 ## High-Priority Tasks
 
