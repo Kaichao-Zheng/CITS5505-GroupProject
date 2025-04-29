@@ -5,76 +5,80 @@
 {% endblock %}
 
 {% block content %}
-    <div class="section-box d-flex">
+    <div class="section-box d-flex mb-2 mt-2">
         <div class="col">
             <h1><strong>Search</strong> products & view historical price trends</h1>
+            <div class="shadow p-3 mb-5 bg-white">
+                <p>
+                  Discover smarter shopping with our powerful product search and price tracking tools. Instantly search for products across categories and explore detailed historical price trends to make confident, informed buying decisions. Stay ahead of sales, spot genuine discounts, and never overpay again!
+                </p>
+              </div>
         </div>
         <div class="col d-flex justify-content-center" style="mask-image: radial-gradient(ellipse closest-side, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%); -webkit-mask-image: radial-gradient(ellipse closest-side, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);">
             <img src="{{ url_for('static', filename='img/Price-Comparison-2.webp') }}" alt="Forecasting" style="height: 300px;">
         </div>
     </div>
-    <div class="section-box d-flex">
+    <div class="section-box d-flex mb-2">
         <div class="col">
             <h1> <strong>Predict</strong>  future prices with our forecasting system</h1>
+            <div class="shadow p-3 mb-5 bg-white">
+                <p>Use our advanced graphing system to analyze current trends and predict future prices with confidence. Make informed decisions before the market shifts, giving you a real competitive edge.</p>
+              </div>
         </div>
         <div class="col d-flex justify-content-center">
             <img src="{{ url_for('static', filename='img/predict-future-prices.webp') }}" alt="Forecasting" style="height: 260px;">
         </div>
     </div>
-    <div class="section-box d-flex">
+    <div class="section-box d-flex mb-2">
         <div class="col">
             <h1> <strong>Upload</strong>  your pricing data to generate insights</h1>
+            <div class="shadow p-3 mb-5 bg-white">
+                <p>
+                  Are you a merchant? Upload your pricing data and unlock powerful insights! Compare your prices against competitors, discover market trends, and identify opportunities to optimize your strategy. Stay one step ahead and dominate your market with data-driven decisions.
+                </p>
+              </div>
         </div>
         <div class="col d-flex justify-content-center">
             <img src="{{ url_for('static', filename='img/upload-generate-insights-2.png') }}" alt="Forecasting" style="height: 260px;">
         </div>
     </div>
 
-    <!-- Call to Action + Predict/Search/Share -->
-    <div class="container my-4">
-        <div class="row text-center text-md-start">
-            <!-- Left side: Call to Action -->
-            <div class="col-md-6 mb-md-0">
-                <p class="text-white mb-1">Ready to get started?</p>
-                <!-- Pop-up login modal -->
-                <a class="btn btn-success me-2" 
-                    href="#" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#loginModal">
-                    Login
-                </a>
-                <!-- Register: to be continue -->
-                <a class="btn btn-primary" 
-                    href="#" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#">
-                    Register
-                </a>
+  <div class="section-box mb-2">
+    <div class="row">
+      <div class="col-3">
+        <div>
+          <h1> Ready to get started?</h1>
+          <div class="">
+            <button class="btn btn-outline-dark me-2">Login</button>
+            <button class="btn btn-primary">Register</button>
             </div>
-
-            <!-- Right side: Icons -->
-            <div class="col-md-6 d-flex justify-content-center justify-content-md-end gap-4">
-                <!-- Predict: to be continue -->
-                <div class="text-center">
-                    <i class="text-white fs-3 bi bi-graph-down-arrow"></i>
-                    <p class="text-white mb-0">Predict</p>
-                </div>
-                <!-- Scroll to search -->
-                <div class="text-center" onclick="scrollToSearch()" style="cursor: pointer;">
-                    <i class="text-white fs-3 bi bi-search"></i>
-                    <p class="text-white mb-0">Search</p>
-                </div>
-                <!-- Pop-up share modal -->
-                <div class="text-center">
-                    <a class="text-white mb-0 nav-link"
-                        href="#"
-                        data-bs-toggle="modal"
-                        data-bs-target="#shareModal">
-                        <i class="text-white fs-3 bi-share-fill"></i>
-                        <p>Share</p>
-                    </a>
+          </div>
+        </div>
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            <figure style="width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
+              <img src="{{ url_for('static', filename='img/predict-picture-2.jpeg') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Predict">
+              <figcaption>Predict</figcaption>
+          </figure>
+        </div>
+        <div class="col">
+          <figure style="width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
+            <img src="{{ url_for('static', filename='img/search-product.webp') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Search">
+            <figcaption>Search</figcaption>
+        </figure>
+        </div>
+        <div class="col">
+          <figure style="width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
+            <img src="{{ url_for('static', filename='img/sharing.avif') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Share">
+            <figcaption>Share</figcaption>
+          </figure>
                 </div>
             </div>
         </div>
     </div>
+  </div>
+</body>
+</html>
+
 {% endblock %}
