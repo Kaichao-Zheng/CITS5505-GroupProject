@@ -1,102 +1,26 @@
+{% set enable_modal_trend = True %}
 {% extends "base.html" %}
 
+{% block import_CSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='product.css') }}">
+{% endblock %}
+
+{% block import_JS %}
+    <script src="{{ url_for('static', filename='product.js') }}"></script>
+{% endblock %}
+
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Product Grid - Mock UI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #ffffff;
-      color: rgb(0, 0, 0);
-    }
-    .product-card {
-      border: 2px solid #000000;
-      border-radius: 12px;
-      padding: 15px;
-      background-color: #ffffff;
-    }
-    .product-img {
-      width: 100%;
-      height: 180px;
-      background-color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ff6600;
-      font-size: 28px;
-      border: 2px dashed #ff6600;
-      border-radius: 8px;
-    }
-    .badge-shop {
-      background-color: blue;
-      font-size: 0.75em;
-    }
-    .btn-price {
-      background-color: red;
-      color: white;
-      font-size: 0.75em;
-    }
-    .load-btn {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px 30px;
-      border-radius: 20px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container py-4">
     <div class="row g-4" id="product-list">
-      <!-- 商品卡片将通过 JS 插入 -->
+        <!-- Insert product cards here -->
     </div>
 
     <div class="text-center mt-4">
-      <button class="load-btn" onclick="loadMore()">Load more</button>
+        <button class="btn btn-success rounded-pill px-4" onclick="loadMore()">Load more</button>
     </div>
-  </div>
-
-  <script>
-    const mockProducts = [
-      { name: "Mock Product 1" },
-      { name: "Mock Product 2" },
-      { name: "Mock Product 3" },
-      { name: "Mock Product 4" },
-      { name: "Mock Product 5" },
-      { name: "Mock Product 6" },
-      { name: "Mock Product 7" },
-      { name: "Mock Product 8" }
-    ];
-
-    let loaded = 0;
-
-    function loadMore(count = 6) {
-      const container = document.getElementById('product-list');
-      for (let i = loaded; i < loaded + count && i < mockProducts.length; i++) {
-        const card = document.createElement('div');
-        card.className = 'col-md-6 col-lg-4';
-        card.innerHTML = `
-          <div class="product-card">
-            <div class="product-img">🖼</div>
-            <p class="mt-2 mb-1">${mockProducts[i].name}</p>
-            <span class="badge badge-shop">Shop</span>
-            <button class="btn btn-sm btn-price float-end">View Price</button>
-            <p class="mt-1 mb-0 text-white-50 small">&lt; Vendor with lowest price NOW &gt;</p>
-          </div>
-        `;
-        container.appendChild(card);
-      }
-      loaded += count;
-    }
-
-    window.onload = () => loadMore();
-  </script>
-</body>
-</html>
-
-
 {% endblock %}
+
+{#
+    To Tony,
+    The CSS code has been moved to "static/product.css",
+    the JS code has been moved to "static/product.js"
+#}

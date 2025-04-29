@@ -1,53 +1,47 @@
 {% extends "base.html" %}
 
+{% block import_CSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
+
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SmartAnalytics</title>
-</head>
-<body>
-
-  <div class="section-box d-flex mb-2 mt-2">
-    <div class="col">
-      <h1><strong>Search</strong> products & view historical price trends</h1>
-      <div class="mt-5 shadow p-3 mb-5 bg-white">
-        <p>
-          Discover smarter shopping with our powerful product search and price tracking tools. Instantly search for products across categories and explore detailed historical price trends to make confident, informed buying decisions. Stay ahead of sales, spot genuine discounts, and never overpay again!
-        </p>
-      </div>
+    <div class="section-box d-flex mb-2 mt-2">
+        <div class="col">
+            <h1><strong>Search</strong> products & view historical price trends</h1>
+            <div class="shadow p-3 mb-5 bg-white">
+                <p>
+                  Discover smarter shopping with our powerful product search and price tracking tools. Instantly search for products across categories and explore detailed historical price trends to make confident, informed buying decisions. Stay ahead of sales, spot genuine discounts, and never overpay again!
+                </p>
+              </div>
+        </div>
+        <div class="col d-flex justify-content-center" style="mask-image: radial-gradient(ellipse closest-side, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%); -webkit-mask-image: radial-gradient(ellipse closest-side, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);">
+            <img src="{{ url_for('static', filename='img/Price-Comparison-2.webp') }}" alt="Forecasting" style="height: 300px;">
+        </div>
     </div>
-    <div class="col d-flex justify-content-center" style="mask-image: radial-gradient(ellipse closest-side, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%); -webkit-mask-image: radial-gradient(ellipse closest-side, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);">
-        <img src="{{ url_for('static', filename='img/Price-Comparison-2.webp') }}" alt="Forecasting" style="height: 300px;">
+    <div class="section-box d-flex mb-2">
+        <div class="col">
+            <h1> <strong>Predict</strong>  future prices with our forecasting system</h1>
+            <div class="shadow p-3 mb-5 bg-white">
+                <p>Use our advanced graphing system to analyze current trends and predict future prices with confidence. Make informed decisions before the market shifts, giving you a real competitive edge.</p>
+              </div>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <img src="{{ url_for('static', filename='img/predict-future-prices.webp') }}" alt="Forecasting" style="height: 260px;">
+        </div>
     </div>
-  </div>
-
-  <div class="section-box d-flex mb-2">
-    <div class="col">
-      <h1> <strong>Predict</strong>  future prices with our forecasting system</h1>
-      <div class="mt-5 shadow p-3 mb-5 bg-white">
-        <p>Use our advanced graphing system to analyze current trends and predict future prices with confidence. Make informed decisions before the market shifts, giving you a real competitive edge.</p>
-      </div>
+    <div class="section-box d-flex mb-2">
+        <div class="col">
+            <h1> <strong>Upload</strong>  your pricing data to generate insights</h1>
+            <div class="shadow p-3 mb-5 bg-white">
+                <p>
+                  Are you a merchant? Upload your pricing data and unlock powerful insights! Compare your prices against competitors, discover market trends, and identify opportunities to optimize your strategy. Stay one step ahead and dominate your market with data-driven decisions.
+                </p>
+              </div>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <img src="{{ url_for('static', filename='img/upload-generate-insights-2.png') }}" alt="Forecasting" style="height: 260px;">
+        </div>
     </div>
-    <div class="col d-flex justify-content-center">
-      <img src="{{ url_for('static', filename='img/predict-future-prices.webp') }}" alt="Forecasting" style="height: 260px;">
-    </div>
-  </div>
-  <div class="section-box d-flex mb-2">
-    <div class="col">
-      <h1> <strong>Upload</strong> your pricing data to generate insights</h1>
-      <div class="mt-5 shadow p-3 mb-5 bg-white">
-        <p>
-          Are you a merchant? Upload your pricing data and unlock powerful insights! Compare your prices against competitors, discover market trends, and identify opportunities to optimize your strategy. Stay one step ahead and dominate your market with data-driven decisions.
-        </p>
-      </div>
-    </div>
-    <div class="col d-flex justify-content-center">
-      <img src="{{ url_for('static', filename='img/upload-generate-insights-2.png') }}" alt="Forecasting" style="height: 260px;">
-    </div>
-  </div>
 
   <div class="section-box mb-2">
     <div class="row">
@@ -57,9 +51,9 @@
           <div class="">
             <button class="btn btn-outline-dark me-2">Login</button>
             <button class="btn btn-primary">Register</button>
+            </div>
           </div>
         </div>
-      </div>
       <div class="col">
         <div class="row">
           <div class="col">
@@ -79,9 +73,9 @@
             <img src="{{ url_for('static', filename='img/sharing.avif') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Share">
             <figcaption>Share</figcaption>
           </figure>
+                </div>
+            </div>
         </div>
-        </div>
-      </div>
     </div>
   </div>
 </body>
