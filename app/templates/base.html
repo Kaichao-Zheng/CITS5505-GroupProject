@@ -27,6 +27,13 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Chart.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='line-chart.js') }}"></script>
+
+    <!--FONT AWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="container">
     <!-- Navigation bar -->
@@ -77,6 +84,7 @@
                                 Share
                             </a>
                         </li>
+                        {% include "notification.html" %}
                     </ul>
                 </div>
             </div>
@@ -105,4 +113,32 @@
 
     {# =================== End of Modal Render Section =================== #}
 </body>
+<footer>
+    <div class="footer">
+        <div class="row">
+            <ul>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-youtube"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+            </ul>
+        </div>
+    
+        <div class="row">
+            <ul>
+                <li><a href="#">Contact us</a></li>
+                <li><a href="#">Our Services</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Career</a></li>
+            </ul>
+        </div>
+    
+        <div class="row">
+            <div class="d-flex justify-content-center">
+                 Copyright © 2021 - All rights reserved
+            </div>
+        </div>
+    </div>
+</footer>
 </html>

@@ -1,15 +1,25 @@
 {% extends "modal.html" %}
-
 {% block modal_content %}
     <div class="modal-header">
-        <h5 class="modal-title">Trend</h5>
+        <h2>Forecast Line Chart</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>
     <div class="modal-body">
-        <div>
-            <!-- AJAX from API -->
-            <label class="form-label">Placeholder</label>
-            <img src="{{ url_for('static', filename='mockup/mockups/Historical-Forecast-Prices.png') }}" alt="Placeholder">
-        </div>
+        <div class="section-box" style="height: 100%;">
+            <p>Product: TimTam</p>
+          <canvas id="forecast1"></canvas>
+    </div>
+        <script>
+          fetch('/forecast-data')
+              .then(res => res.json())
+              .then(data => {
+                  renderForecastChart({
+                      targetId: 'forecast1',
+                      datasets: data,
+                      label: '7-Day Forecast',
+                      borderColor: 'green'
+                  });
+              });
+        </script>
     </div>
 {% endblock %}
