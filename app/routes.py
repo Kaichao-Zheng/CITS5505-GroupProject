@@ -4,6 +4,20 @@ from flask import render_template, jsonify
 from datetime import datetime, timedelta
 from app import app
 
+# TODO: Add new file for context_processor and import here!
+# context_processor has been added because we need to reload all the notifications for the users everytime a new route has been called.
+# Every time a new route is called the injector will be called! 
+@app.context_processor
+def inject_notifications():
+    notifications = [
+        {"sender": "Kushan", "product": "TimTam", "message": "Price dropped at Coles!"},
+        {"sender": "Alex", "product": "iPhone", "message": "JB Hi-Fi has deals!"},
+        {"sender": "Alex", "product": "iPhone", "message": "JB Hi-Fi has deals!"},
+        {"sender": "Alex", "product": "iPhone", "message": "JB Hi-Fi has deals!"},
+        {"sender": "Alex", "product": "iPhone", "message": "JB Hi-Fi has deals!"},
+    ]
+    return dict(notifications=notifications)
+
 @app.route('/')
 @app.route('/index')
 def index():
