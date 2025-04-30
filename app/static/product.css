@@ -10,14 +10,14 @@ body {
 }
 .product-img {
     width: 100%;
-    height: 180px;
+    height: 100%;
     background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #ff6600;
     font-size: 28px;
-    border: 2px dashed #ff6600;
+    /*border: 2px dashed #ff6600;*/
     border-radius: 8px;
 }
 /* .badge-shop {

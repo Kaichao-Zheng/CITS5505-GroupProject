@@ -18,7 +18,9 @@ function loadMore(count = 6) {
     card.className = 'col-md-6 col-lg-4';
     card.innerHTML = `
         <div class="product-card">
-            <div class="product-img">🖼</div>
+            <div class="product-img">
+                <img src="/static/img/mock-image.png" alt="${mockProducts[i].name}" class="img-fluid w-100" style="max-height: 360px; object-fit: contain;">
+            </div>
             <p class="mt-2 mb-1">${mockProducts[i].name}</p>
             <span class="badge bg-success">Shop</span>
             <a class="btn btn-sm btn-primary float-end"
