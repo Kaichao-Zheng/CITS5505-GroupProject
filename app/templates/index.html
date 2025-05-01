@@ -42,58 +42,56 @@
                 <p>
                   Are you a merchant? Upload your pricing data and unlock powerful insights! Compare your prices against competitors, discover market trends, and identify opportunities to optimize your strategy. Stay one step ahead and dominate your market with data-driven decisions.
                 </p>
-              </div>
+            </div>
         </div>
         <div class="col d-flex justify-content-center">
             <img src="{{ url_for('static', filename='img/upload-generate-insights-2.png') }}" alt="Forecasting" style="height: 260px;">
         </div>
     </div>
 
-  <div class="section-box mb-2">
+    <div class="section-box mb-2">
     <div class="row">
-      <div class="col-3">
-        <div>
-          <h1> Ready to get started?</h1>
-          <div class="">
-            <a class="btn btn-outline-dark me-2" 
-              href="#" 
-              data-bs-toggle="modal" 
-              data-bs-target="#loginModal">
-              Login
-            </a>
-            <button class="btn btn-primary">Register</button>
-          </div>
+        <div class="col-3">
+            <div>
+                <h1> Ready to get started?</h1>
+                <div class="">
+                    <a class="btn btn-outline-dark me-2" ss
+                        href="#" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#loginModal">
+                        Login
+                    </a>
+                    <button class="btn btn-primary">Register</button>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-8">
-        <div class="row">
-          <div class="col-4">
-            <figure style="width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
-              <img src="{{ url_for('static', filename='img/predict-picture-2.jpeg') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Predict">
-              <figcaption>Predict</figcaption>
-            </figure>
-          </div>
-          <div class="col-4">
-            <figure onclick="scrollToSearch()" style="cursor: pointer; width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
-              <img src="{{ url_for('static', filename='img/search-product.webp') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Search">
-              <figcaption>Search</figcaption>
-            </figure>
-          </div>
-          <div class="col-4">
-            <a class="text-white mb-0 nav-link"
-              href="#"
-              data-bs-toggle="modal"
-              data-bs-target="#shareModal">
-              <figure style="width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
-                <img src="{{ url_for('static', filename='img/sharing.avif') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Share">
-                <figcaption>Share</figcaption>
-              </figure>
-            </a>
-          </div>
+        <div class="col-8">
+            <div class="row">
+                <div class="col-4">
+                    <figure style="width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
+                        <img src="{{ url_for('static', filename='img/predict-picture-2.jpeg') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Predict">
+                        <figcaption>Predict</figcaption>
+                    </figure>
+                </div>
+                <div class="col-4">
+                    <figure onclick="scrollToSearch()" style="cursor: pointer; width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
+                        <img src="{{ url_for('static', filename='img/search-product.webp') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Search">
+                        <figcaption>Search</figcaption>
+                    </figure>
+                </div>
+                <div class="col-4">
+                <a class="text-white mb-0 nav-link"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#shareModal">
+                    <figure style="width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
+                        <img src="{{ url_for('static', filename='img/sharing.avif') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Share">
+                        <figcaption>Share</figcaption>
+                    </figure>
+                </a>
+                </div>
+            </div>
         </div>
-      </div>
-  </div>
-</body>
-</html>
-
+    </div>
+    </div>
 {% endblock %}
