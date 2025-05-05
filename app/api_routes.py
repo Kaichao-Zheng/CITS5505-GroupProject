@@ -74,3 +74,51 @@ def get_shared_data(user_id):
             "sender": sender.username
         })
     return jsonify(result)
+    
+@api_bp.route('/register', methods=['POST'])
+def register_user():
+    data = request.get_json()
+    new_user = User(username=data['username'], password_hash=hash_password(data['password']))
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"status": "user created", "username": data['username']})
+    
+@api_bp.route('/login', methods=['POST'])
+def login_user():
+    data = request.get_json()
+    user = User.query.filter_by(username=data['username']).first()
+    if user and check_password_hash(user.password_hash, data['password']):
+        # 使用JWT或其他方式生成认证令牌
+        token = generate_jwt(user)  # 自定义JWT生成方法
+        return jsonify({"status": "success", "token": token})
+    return jsonify({"error": "Invalid credentials"}), 401
+
+@api_bp.route('/profile', methods=['GET'])
+@jwt_required()  # 使用JWT验证
+def get_user_profile():
+    current_user = get_jwt_identity()  # 获取当前用户
+    user = User.query.get(current_user['id'])
+    return jsonify({"username": user.username, "email": user.email})
+    
+@api_bp.route('/product/<int:product_id>/price-trend', methods=['GET'])
+def get_price_trend(product_id):
+    product = Product.query.get(product_id)
+    if not product:
+        return jsonify({"error": "Product not found"}), 404
+    # 假设使用Matplotlib生成图表
+    price_data = PriceData.query.filter_by(product_id=product_id).all()
+    dates = [price.date for price in price_data]
+    prices = [price.price for price in price_data]
+    img = generate_price_trend_chart(dates, prices)  # 生成图表的自定义方法
+    return send_file(img, mimetype='image/png')  # 返回图表图像
+
+@api_bp.route('/product/<int:product_id>/forecast', methods=['GET'])
+def get_price_forecast(product_id):
+    product = Product.query.get(product_id)
+    if not product:
+        return jsonify({"error": "Product not found"}), 404
+    # 使用预测模型生成未来价格预测
+    forecast_dates, forecast_prices = predict_price_forecast(product_id)  # 自定义预测方法
+    img = generate_forecast_chart(forecast_dates, forecast_prices)  # 生成预测图
+    return send_file(img, mimetype='image/png')  # 返回预测图像
+
