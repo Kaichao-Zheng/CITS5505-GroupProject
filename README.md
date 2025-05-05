@@ -32,28 +32,58 @@ Update `requirements.txt` file after new dependency is added
 pip freeze > requirements.txt
 ```
 
-## Create Test Database
-
-💬**SQLite Viewer** is a light-weight GUI Extension in VSCode
+## Database Operations
 
 **Dependency**
 
 ```bash
 pip install flask
-pip install flask_sqlalchemy
+pip install flask-sqlalchemy
+pip install flask-migrate
 pip install python-dotenv
 ```
+
+**Version Control**
+
+* Apply newest schema version
+
+  ```
+  flask db upgrade
+  ```
+
+* Record schema change in `db_model.py`
+
+  ```bash
+  flask db migrate -m "commit_messages"
+  ```
+
+* Check current version
+
+  ```
+  flask db current
+
+* Check history versions
+
+  ```bash
+  flask db history
+  ```
+
+* Roll back
+
+  ```bash
+  flask db downgrade <version_hash>
+  ```
+
+**GUI Access**
+
+⭐`SQLite Viewer` is a light-weight graphical extension in VSCode for browsing and interacting with SQLite.
+
+**Manual Operations**
 
 Run Flask Shell in terminal
 
 ```bash
 flask shell
-```
-
-Create a new SQLite database at `instance/site.db`
-
-```bash
->>> db.create_all()
 ```
 
 Insert the first row in user table
