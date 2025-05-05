@@ -14,8 +14,8 @@ This `README.md` will be replaced by another `README.md` to explain the project,
 |          | Week 7      | First Meeting        | at 3pm, on 08 April                                          |
 |          | Week 8      |                      |                                                              |
 |          | Study Break | Second Meeting       | at 11am, on 22 April                                         |
-| ⌛        | Week 9      | GUI Presentation     | [at 2:05pm, on 1st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
-|          | Week 10     | Feature Presentation | [at 2:05pm, on 8st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
+|          | Week 9      | GUI Presentation     | [at 2:05pm, on 1st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
+| ⌛        | Week 10     | Feature Presentation | [at 2:05pm, on 8st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
 |          | Week 11     | Project Submission   | [at 11:59pm, on 16 May](https://lms.uwa.edu.au/webapps/blackboard/content/listContent.jsp?course_id=_101669_1&content_id=_4251653_1&mode=reset) |
 |          | Week 12     | Group Presentation   |                                                              |
 
@@ -115,5 +115,5 @@ Delete the user `where id='1'`
 | -------- | ----------------- | ------------------------------------------------------------ |
 | 24141207 | Kai Zheng         | [Kaichao-Zheng](https://github.com/Kaichao-Zheng)            |
 | 24074951 | Tony Chu          | [TonyChyu](https://github.com/TonyChyu)                      |
-| 24112359 | Chang Liu         | [ChangLiu-UWA](https://github.com/ChangLiu-UWA)              |
+| 24112359 | Chang Liu         | [ChangLiu-doc](https://github.com/ChangLiu-doc)              |
 | 24205163 | Kushan Jayasekera | [kushanuwa](https://github.com/kushanuwa)<br />[kushjayz](https://github.com/kushjayz) |

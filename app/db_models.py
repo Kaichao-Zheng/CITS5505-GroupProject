@@ -1,9 +1,11 @@
 
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_login import UserMixin
 from datetime import datetime
 
 db = SQLAlchemy()
+migrate = Migrate()
 
 # Association Table: Merchant <-> Product (Many-to-Many)
 merchant_products = db.Table('merchant_products',
