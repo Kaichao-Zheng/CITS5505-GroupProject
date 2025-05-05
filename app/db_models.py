@@ -1,9 +1,11 @@
 
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_login import UserMixin
 from datetime import datetime
 
 db = SQLAlchemy()
+migrate = Migrate()
 
 # Association Table: Merchant <-> Product (Many-to-Many)
 merchant_products = db.Table('merchant_products',
@@ -42,6 +44,7 @@ class Product(db.Model):
     __tablename__ = 'product'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
+    img_path = db.Column(db.String(100), default='img/mock-image.png')
     prices = db.relationship('PriceData', backref='product', lazy=True)
 
 class PriceData(db.Model):

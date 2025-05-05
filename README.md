@@ -14,8 +14,8 @@ This `README.md` will be replaced by another `README.md` to explain the project,
 |          | Week 7      | First Meeting        | at 3pm, on 08 April                                          |
 |          | Week 8      |                      |                                                              |
 |          | Study Break | Second Meeting       | at 11am, on 22 April                                         |
-| ⌛        | Week 9      | GUI Presentation     | [at 2:05pm, on 1st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
-|          | Week 10     | Feature Presentation | [at 2:05pm, on 8st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
+|          | Week 9      | GUI Presentation     | [at 2:05pm, on 1st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
+| ⌛        | Week 10     | Feature Presentation | [at 2:05pm, on 8st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
 |          | Week 11     | Project Submission   | [at 11:59pm, on 16 May](https://lms.uwa.edu.au/webapps/blackboard/content/listContent.jsp?course_id=_101669_1&content_id=_4251653_1&mode=reset) |
 |          | Week 12     | Group Presentation   |                                                              |
 
@@ -32,28 +32,58 @@ Update `requirements.txt` file after new dependency is added
 pip freeze > requirements.txt
 ```
 
-## Create Test Database
-
-💬**SQLite Viewer** is a light-weight GUI Extension in VSCode
+## Database Operations
 
 **Dependency**
 
 ```bash
 pip install flask
-pip install flask_sqlalchemy
+pip install flask-sqlalchemy
+pip install flask-migrate
 pip install python-dotenv
 ```
+
+**Version Control**
+
+* Apply newest schema version
+
+  ```
+  flask db upgrade
+  ```
+
+* Record schema change in `db_model.py`
+
+  ```bash
+  flask db migrate -m "commit_messages"
+  ```
+
+* Check current version
+
+  ```
+  flask db current
+
+* Check history versions
+
+  ```bash
+  flask db history
+  ```
+
+* Roll back
+
+  ```bash
+  flask db downgrade <version_hash>
+  ```
+
+**GUI Access**
+
+⭐`SQLite Viewer` is a light-weight graphical extension in VSCode for browsing and interacting with SQLite.
+
+**Manual Operations**
 
 Run Flask Shell in terminal
 
 ```bash
 flask shell
-```
-
-Create a new SQLite database at `instance/site.db`
-
-```bash
->>> db.create_all()
 ```
 
 Insert the first row in user table
@@ -115,5 +145,5 @@ Delete the user `where id='1'`
 | -------- | ----------------- | ------------------------------------------------------------ |
 | 24141207 | Kai Zheng         | [Kaichao-Zheng](https://github.com/Kaichao-Zheng)            |
 | 24074951 | Tony Chu          | [TonyChyu](https://github.com/TonyChyu)                      |
-| 24112359 | Chang Liu         | [ChangLiu-UWA](https://github.com/ChangLiu-UWA)              |
+| 24112359 | Chang Liu         | [ChangLiu-doc](https://github.com/ChangLiu-doc)              |
 | 24205163 | Kushan Jayasekera | [kushanuwa](https://github.com/kushanuwa)<br />[kushjayz](https://github.com/kushjayz) |
