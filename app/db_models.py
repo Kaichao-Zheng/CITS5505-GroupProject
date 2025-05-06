@@ -1,11 +1,13 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import UserMixin
+from flask_login import UserMixin, LoginManager
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 migrate = Migrate()
+login = LoginManager()
 
 # Association Table: Merchant <-> Product (Many-to-Many)
 merchant_products = db.Table('merchant_products',
@@ -27,18 +29,18 @@ class User(db.Model, UserMixin):
     uploads = db.relationship('Upload', backref='uploader', lazy=True)
     sent_shares = db.relationship('Share', foreign_keys='Share.sender_id', backref='sender', lazy=True)
     received_shares = db.relationship('Share', foreign_keys='Share.receiver_id', backref='receiver', lazy=True)
+    
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+    
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 class Merchant(db.Model):
     __tablename__ = 'merchant'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     products = db.relationship('Product', secondary=merchant_products, backref='merchants')
-
-class Upload(db.Model):
-    __tablename__ = 'upload'
-    id = db.Column(db.Integer, primary_key=True)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class Product(db.Model):
     __tablename__ = 'product'
@@ -55,6 +57,12 @@ class PriceData(db.Model):
     price = db.Column(db.Float, nullable=False)
     date = db.Column(db.Date, nullable=False)
 
+class Upload(db.Model):
+    __tablename__ = 'upload'
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
 class Share(db.Model):
     __tablename__ = 'share'
     id = db.Column(db.Integer, primary_key=True)
@@ -64,3 +72,7 @@ class Share(db.Model):
     date_shared = db.Column(db.DateTime, default=datetime.utcnow)
 
     product = db.relationship('Product')
+
+@login.user_loader
+def load_user(id):
+    return db.session.get(User, int(id))

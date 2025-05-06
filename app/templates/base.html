@@ -92,7 +92,17 @@
             </div>
         </nav>
     </div>
-    <!-- Main content area for inheritance-->
+    <!-- flash message area -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for color, message in messages %}
+                <div class="alert alert-{{ color }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <!-- Main content area for inheritance -->
     <div class="bd-helper my-3">
         {% block content %}
         {% endblock %}
