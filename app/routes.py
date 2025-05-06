@@ -1,8 +1,11 @@
 # responsible for rendering HTML templates and returning page views.
 
 from flask import render_template, flash, redirect, request, jsonify, g
+from flask_login import login_user
+import sqlalchemy as sa
 from datetime import datetime, timedelta
-from app import app
+from app import app, db
+from app.db_models import User
 from app.forms import LoginForm
 
 @app.before_request
@@ -33,18 +36,36 @@ def index():
 
 @app.route('/product', methods=['GET', 'POST'])
 def product():
+    result = handle_login_post()
+    if result:
+        return result
     return render_template('product.html', form=g.form)
 
 @app.route('/forecast-prices', methods=['GET', 'POST'])
 def forecast():
+    result = handle_login_post()
+    if result:
+        return result
     return render_template('forecast-prices.html', form=g.form)
 
 
 def handle_login_post():
     form = g.form
     if form.validate_on_submit():
-        flash(f"Welcome back, \"{form.username.data}\"! remember_me={form.remember_me.data}")
+        user = db.session.scalar(
+            sa.select(User).where(User.username == form.username.data))
+        # failed login
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password', 'danger')
+            return redirect(request.path)
+        # successful login
+        login_user(user)
+        flash(f'Welcome back, "{form.username.data}"!', 'success')
         return redirect(request.path)
+    else:
+        for field in [form.username, form.password]:
+            for err in field.errors:
+                flash(f"{field.label.text}: {err}", 'danger')
     return None
 
 # may should be moved to api_routes.py and access via localhost:5000/api/forecast-data ?
