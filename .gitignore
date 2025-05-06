@@ -3,3 +3,6 @@
 
 # Ignore bulk local virtual environment files
 venv/
+
+# Ignore the backup files of .drawio
+*.bkp

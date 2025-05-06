@@ -94,6 +94,14 @@ Insert the first row in user table
 >>> db.session.commit()
 ```
 
+Modify field
+
+```bash
+>>> user = User.query.get(user_id)
+>>> user.username = 'new_name'
+>>> db.session.commit()
+```
+
 Query: `SELECT * FROM user;`
 
 ```bash
