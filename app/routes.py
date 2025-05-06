@@ -1,8 +1,13 @@
 # responsible for rendering HTML templates and returning page views.
 
-from flask import render_template, jsonify
+from flask import render_template, flash, redirect, request, jsonify, g
 from datetime import datetime, timedelta
 from app import app
+from app.forms import LoginForm
+
+@app.before_request
+def before_request():
+    g.form = LoginForm()
 
 # TODO: Add new file for context_processor and import here!
 # context_processor has been added because we need to reload all the notifications for the users everytime a new route has been called.
@@ -18,15 +23,31 @@ def inject_notifications():
     ]
     return dict(notifications=notifications)
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    result = handle_login_post()
+    if result:
+        return result
+    return render_template('index.html', form=g.form)
 
-@app.route('/product')
+@app.route('/product', methods=['GET', 'POST'])
 def product():
-    return render_template('product.html')
+    return render_template('product.html', form=g.form)
 
+@app.route('/forecast-prices', methods=['GET', 'POST'])
+def forecast():
+    return render_template('forecast-prices.html', form=g.form)
+
+
+def handle_login_post():
+    form = g.form
+    if form.validate_on_submit():
+        flash(f"Welcome back, \"{form.username.data}\"! remember_me={form.remember_me.data}")
+        return redirect(request.path)
+    return None
+
+# may should be moved to api_routes.py and access via localhost:5000/api/forecast-data ?
 @app.route('/forecast-data')
 def forecast_data():
 
@@ -69,7 +90,3 @@ def forecast_data():
         # ...
         # }]
     return jsonify(forecast)
-
-@app.route('/forecast-prices')
-def forecast():
-    return render_template('forecast-prices.html')

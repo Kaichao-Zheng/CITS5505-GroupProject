@@ -6,19 +6,26 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>
     <div class="modal-body">
-        <form>
+        <form action="" method="post" novalidate>
+            <!-- CSRF token for security -->
+            {{ form.hidden_tag() }}
             <!-- Username input box -->
             <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username">
+                {{ form.username.label(class="form-label") }}
+                {{ form.username(class="form-control") }}
             </div>
             <!-- Password input box -->
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password">
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(class="form-control") }}
+            </div>
+            <!-- Remember me checkbox -->
+            <div class="mb-3 form-check">
+                {{ form.remember_me(class="form-check-input") }}
+                {{ form.remember_me.label(class="form-check-label") }}
             </div>
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary">Log in</button>
+            {{ form.submit(class="btn btn-primary") }}
         </form>
     </div>
 {% endblock %}
