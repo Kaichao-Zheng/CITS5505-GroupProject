@@ -6,5 +6,7 @@ app = Flask(__name__)
 app.config.from_pyfile('../instance/config.py')
 db.init_app(app)
 app.register_blueprint(api_bp, url_prefix='/api')
+app.config['UPLOAD_FOLDER'] = 'static/images'
 
-from app import routes
+
+

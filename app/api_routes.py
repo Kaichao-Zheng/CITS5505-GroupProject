@@ -1,7 +1,11 @@
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app, url_for
+import os
 from app.db_models import db, Product, Merchant, PriceData, Share, User
 from datetime import datetime
+from werkzeug.security import check_password_hash 
+from flask import send_file
+from app.utils import allowed_file 
 
 api_bp = Blueprint('api', __name__)
 
@@ -31,7 +35,7 @@ def insert_data_bulk():
 @api_bp.route('/products', methods=['GET'])
 def retrieve_product_data():
     products = Product.query.all()
-    return jsonify([{"product_id": p.id, "name": p.name} for p in products])
+    return jsonify([{"product_id": p.id, "name": p.name, "image_url": p.image_url} for p in products])
 
 @api_bp.route('/product/<int:product_id>/data', methods=['GET'])
 def get_data_for_product(product_id):
@@ -88,15 +92,15 @@ def login_user():
     data = request.get_json()
     user = User.query.filter_by(username=data['username']).first()
     if user and check_password_hash(user.password_hash, data['password']):
-        # 使用JWT或其他方式生成认证令牌
-        token = generate_jwt(user)  # 自定义JWT生成方法
+        # using JWT for authentication 
+        token = generate_jwt(user)  # custom method to generate JWT token
         return jsonify({"status": "success", "token": token})
     return jsonify({"error": "Invalid credentials"}), 401
 
 @api_bp.route('/profile', methods=['GET'])
-@jwt_required()  # 使用JWT验证
+@jwt_required()  # using Flask-JWT-Extended for JWT authentication
 def get_user_profile():
-    current_user = get_jwt_identity()  # 获取当前用户
+    current_user = get_jwt_identity()  # get current user from JWT token
     user = User.query.get(current_user['id'])
     return jsonify({"username": user.username, "email": user.email})
     
@@ -105,20 +109,42 @@ def get_price_trend(product_id):
     product = Product.query.get(product_id)
     if not product:
         return jsonify({"error": "Product not found"}), 404
-    # 假设使用Matplotlib生成图表
+    # suppose we have a method to generate a price trend chart 
     price_data = PriceData.query.filter_by(product_id=product_id).all()
     dates = [price.date for price in price_data]
     prices = [price.price for price in price_data]
-    img = generate_price_trend_chart(dates, prices)  # 生成图表的自定义方法
-    return send_file(img, mimetype='image/png')  # 返回图表图像
+    img = generate_price_trend_chart(dates, prices)  # custom method to generate chart 
+    return send_file(img, mimetype='image/png')  
 
 @api_bp.route('/product/<int:product_id>/forecast', methods=['GET'])
 def get_price_forecast(product_id):
     product = Product.query.get(product_id)
     if not product:
         return jsonify({"error": "Product not found"}), 404
-    # 使用预测模型生成未来价格预测
-    forecast_dates, forecast_prices = predict_price_forecast(product_id)  # 自定义预测方法
-    img = generate_forecast_chart(forecast_dates, forecast_prices)  # 生成预测图
-    return send_file(img, mimetype='image/png')  # 返回预测图像
+    # using a custom method to predict price forecast 
+    forecast_dates, forecast_prices = predict_price_forecast(product_id)  
+    img = generate_forecast_chart(forecast_dates, forecast_prices) 
+    return send_file(img, mimetype='image/png')
 
+@api_bp.route('/upload_image', methods=['POST'])
+def upload_image():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part"}), 400
+
+    file = request.files['file']
+    if file and allowed_file(file.filename):
+        filename = os.path.join(current_app.config['UPLOAD_FOLDER'], file.filename)
+        file.save(filename)
+
+        # getting the URL for the uploaded image 
+        image_url = url_for('static', filename='images/' + file.filename) 
+
+        # save the image URL to the database 
+        product_id = request.form['product_id']
+        product = Product.query.get(product_id)
+        if product:
+            product.image_url = image_url 
+            db.session.commit()
+
+        return jsonify({"message": "File uploaded successfully", "image_url": image_url})
+    return jsonify({"error": "Invalid file type"}), 400

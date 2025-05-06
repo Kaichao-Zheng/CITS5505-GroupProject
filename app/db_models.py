@@ -43,6 +43,7 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     prices = db.relationship('PriceData', backref='product', lazy=True)
+    image_url = db.Column(db.String(200), nullable=True)
 
 class PriceData(db.Model):
     __tablename__ = 'price_data'
