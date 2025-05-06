@@ -2,32 +2,30 @@
 
 
 
-<li class="bd-helper nav-item dropdown">
-    <a class="nav-link position-relative" href="#" id="notifDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-bell-fill fs-4"></i>
-        <span id="notif-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          {{ notifications|length }}
-        </span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="notifDropdown" style="width: 350px; max-height: 400px; overflow-y: auto;">
-        <li class="dropdown-header fw-bold text-primary">📬 New Notifications</li>
-      
-        {% for notif in notifications %}
-        <li>
-          <!-- <a class="dropdown-item"  href="/notifications/{{ notif.id }}"> -->
-          <a class="dropdown-item"  href="/forecast-prices">
-            <div class="fw-semibold text-dark">Sent by: {{ notif.sender }}</div>
-            <div class="text-muted small">Product: {{ notif.product }}</div>
-            <div class="text-body">{{ notif.message }}</div>
-          </a>
-        </li>
-        {% if not loop.last %}
-          <li><hr class="dropdown-divider"></li>
-        {% endif %}
-        {% endfor %}
-      
-        <li>
-          <a class="dropdown-item text-center text-primary fw-semibold disabled" style="color: #6c757d;" href="/notifications">View all</a>
-        </li>
-      </ul>
-</li>
+<a class="nav-link position-relative" href="#" id="notifDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-bell-fill fs-4"></i>
+    <span id="notif-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+      {{ notifications|length }}
+    </span>
+</a>
+<ul class="bd-helper dropdown-menu dropdown-menu-end shadow" aria-labelledby="notifDropdown" style="width: 350px; max-height: 400px; overflow-y: auto;">
+    <li class="dropdown-header fw-bold text-primary">📬 New Notifications</li>
+  
+    {% for notif in notifications %}
+    <li>
+      <!-- <a class="dropdown-item"  href="/notifications/{{ notif.id }}"> -->
+      <a class="dropdown-item"  href="/forecast-prices">
+        <div class="fw-semibold text-dark">Sent by: {{ notif.sender }}</div>
+        <div class="text-muted small">Product: {{ notif.product }}</div>
+        <div class="text-body">{{ notif.message }}</div>
+      </a>
+    </li>
+    {% if not loop.last %}
+      <li><hr class="dropdown-divider"></li>
+    {% endif %}
+    {% endfor %}
+  
+    <li>
+      <a class="dropdown-item text-center text-primary fw-semibold disabled" style="color: #6c757d;" href="/notifications">View all</a>
+    </li>
+</ul>
