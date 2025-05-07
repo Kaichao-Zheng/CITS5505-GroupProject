@@ -1,16 +1,16 @@
-# responsible for rendering HTML templates and returning page views.
 
-from flask import render_template, flash, redirect, request, jsonify, g
-from flask_login import login_user
+from flask import render_template, redirect, url_for, flash, request, jsonify, g
+from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from datetime import datetime, timedelta
 from app import app, db
 from app.db_models import User
-from app.forms import LoginForm
+from app.forms import LoginForm, RegistrationForm
 
 @app.before_request
 def before_request():
-    g.form = LoginForm()
+    g.login_form = LoginForm()
+    g.register_form = RegistrationForm()
 
 # TODO: Add new file for context_processor and import here!
 # context_processor has been added because we need to reload all the notifications for the users everytime a new route has been called.
@@ -32,41 +32,82 @@ def index():
     result = handle_login_post()
     if result:
         return result
-    return render_template('index.html', form=g.form)
+    return render_template('index.html', login_form=g.login_form, register_form=g.register_form)
 
 @app.route('/product', methods=['GET', 'POST'])
 def product():
     result = handle_login_post()
     if result:
         return result
-    return render_template('product.html', form=g.form)
+    return render_template('product.html', login_form=g.login_form)
 
 @app.route('/forecast-prices', methods=['GET', 'POST'])
 def forecast():
     result = handle_login_post()
     if result:
         return result
-    return render_template('forecast-prices.html', form=g.form)
+    return render_template('forecast-prices.html', login_form=g.login_form)
 
+@login_required
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You have been logged out.', 'warning')
+    return redirect(request.referrer)
 
 def handle_login_post():
-    form = g.form
+    form = g.login_form
     if form.validate_on_submit():
         user = db.session.scalar(
             sa.select(User).where(User.username == form.username.data))
         # failed login
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password', 'danger')
+            flash('Login failed: Invalid username or password', 'danger')
             return redirect(request.path)
         # successful login
         login_user(user)
-        flash(f'Welcome back, "{form.username.data}"!', 'success')
+        flash(f'Welcome back, {form.username.data} !', 'success')
         return redirect(request.path)
     else:
-        for field in [form.username, form.password]:
+        errors = []
+        for field in form:
             for err in field.errors:
-                flash(f"{field.label.text}: {err}", 'danger')
+                errors.append(field.label.text)
+        if errors:
+            if len(errors) == 1:
+                msg = f"{errors[0]} is required."
+            else:
+                msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
+            flash(f"Login failed: {msg.capitalize()}", 'danger')
     return None
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(request.referrer or url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data, user_type=form.user_type.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        # Success registration
+        login_user(user)        # Auto login
+        flash(f'Hi {form.username.data}, welcome to Price Trend !', 'success')
+        return redirect(request.referrer)
+    else:
+        errors = []
+        for field in form:
+            for err in field.errors:
+                errors.append(err)
+        if errors:
+            if len(errors) == 1:
+                msg = f"{errors[0]} is required."
+            else:
+                msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
+            flash(f"Registration failed: {msg.capitalize()}", 'danger')
+    return redirect(request.referrer)
 
 # may should be moved to api_routes.py and access via localhost:5000/api/forecast-data ?
 @app.route('/forecast-data')

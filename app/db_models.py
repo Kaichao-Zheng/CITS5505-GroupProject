@@ -18,7 +18,7 @@ merchant_products = db.Table('merchant_products',
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    employee_id = db.Column(db.String(50))
+    employee_id = db.Column(db.String(50), nullable=True)
     merchant_id = db.Column(db.Integer, db.ForeignKey('merchant.id'), nullable=True)
     user_type = db.Column(db.String(20), nullable=False)  # 'Merchant' or 'Customer'
     username = db.Column(db.String(80), unique=True, nullable=False)
