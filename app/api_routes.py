@@ -1,14 +1,90 @@
 
 from flask import Blueprint, request, jsonify, current_app, url_for, send_file 
 from app.db_models import db, Product, Merchant, PriceData, Share, User
+import os
+import csv
+import sqlalchemy as sa
 from datetime import datetime
+from sqlalchemy import func
 from werkzeug.utils import secure_filename
-from werkzeug.security import check_password_hash 
-from app.utils import allowed_file 
+from flask import Blueprint, request, jsonify, current_app, url_for, send_file, redirect, flash, g
+from flask_login import current_user, login_user, login_required, logout_user
+
+from app.db_models import db, Product, Merchant, PriceData, Share, User
+from app.utils import allowed_file
+from werkzeug.security import check_password_hash
+from app.utils import allowed_file
 from sqlalchemy import func
 import csv, os
 
 api_bp = Blueprint('api', __name__)
+
+
+@api_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    from app import RegistrationForm
+    if current_user.is_authenticated:
+        return redirect(request.referrer or url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data, user_type=form.user_type.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        # Success registration
+        login_user(user)        # Auto login
+        flash(f'Hi {form.username.data}, welcome to Price Trend !', 'success')
+        return redirect(request.referrer)
+    else:
+        errors = []
+        for field in form:
+            for err in field.errors:
+                errors.append(err)
+        if errors:
+            if len(errors) == 1:
+                msg = f"{errors[0]} is required."
+            else:
+                msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
+            flash(f"Registration failed: {msg.capitalize()}", 'danger')
+    return redirect(request.referrer)
+
+
+@api_bp.route('/login', methods=['GET', 'POST'])
+def login():
+    form = g.login_form
+    if form.validate_on_submit():
+        user = db.session.scalar(sa.select(User).where(User.username == form.username.data))
+        # failed login
+        if user is None or not user.check_password(form.password.data):
+            flash('Login failed: Invalid username or password', 'danger')
+            # return redirect(request.path)
+            return redirect(request.referrer)
+        # successful login
+        login_user(user)
+        flash(f'Welcome back, {form.username.data} !', 'success')
+        # return redirect(request.path)
+        return redirect(request.referrer)
+    else:
+        errors = []
+        for field in form:
+            for err in field.errors:
+                errors.append(field.label.text)
+        if errors:
+            if len(errors) == 1:
+                msg = f"{errors[0]} is required."
+            else:
+                msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
+            flash(f"Login failed: {msg.capitalize()}", 'danger')
+    return None
+
+
+@login_required
+@api_bp.route('/logout')
+def logout():
+    logout_user()
+    flash('You have been logged out.', 'warning')
+    return redirect(request.referrer)
+
 
 @api_bp.route('/merchants', methods=['GET'])
 def get_all_merchants():
