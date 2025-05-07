@@ -12,16 +12,28 @@
     </div>
 
     <script>
-      fetch('/forecast-data')
-          .then(res => res.json())
-          .then(data => {
-              renderForecastChart({
-                  targetId: 'forecast1',
-                  datasets: data,
-                  label: '7-Day Forecast',
-                  borderColor: 'green'
-              });
-          });
+      // listen to the click event of the button with data-bs-target="#trendModal" 
+        $(document).on('click', '.btn[data-bs-target="#trendModal"]', function() {
+            const productId = $(this).data('product-id');  
+            
+            $.ajax({
+                url: `/api/price_trend/${productId}`,
+                method: 'GET',
+                success: function(data) {
+                    renderForecastChart({
+                        targetId: 'forecast1',  
+                        datasets: data,  
+                        label: '7-Day Forecast',
+                        borderColor: 'green'
+                    });
+                },
+                error: function(error) {
+                    console.error('Error fetching price trend data:', error);
+                    alert('Failed to load price trend data. Please try again later.');
+                }
+            });
+        });
+
     </script>
 
 </body>

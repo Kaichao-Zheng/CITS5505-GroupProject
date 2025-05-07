@@ -1,9 +1,10 @@
 
-from flask import Blueprint, request, jsonify, current_app, url_for, send_file
+from flask import Blueprint, request, jsonify, current_app, url_for, send_file 
 import os
 from app.db_models import db, Product, Merchant, PriceData, Share, User
 from datetime import datetime
-from werkzeug.security import check_password_hash, secure_filename
+from werkzeug.utils import secure_filename
+from werkzeug.security import check_password_hash 
 from app.utils import allowed_file 
 import csv
 from sqlalchemy import func
@@ -87,7 +88,7 @@ def insert_share():
     db.session.commit()
     return jsonify({"status": "shared"})
 
-#This model page is not developed yet.
+#The profile page is not developed yet.
 @api_bp.route('/shared/<int:user_id>', methods=['GET'])
 def get_shared_data(user_id):
     shares = Share.query.filter_by(receiver_id=user_id).all()
@@ -101,44 +102,29 @@ def get_shared_data(user_id):
             "sender": sender.username
         })
     return jsonify(result)
-    
-@api_bp.route('/register', methods=['POST'])
-def register_user():
-    data = request.get_json()
-    new_user = User(username=data['username'], password_hash=hash_password(data['password']))
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify({"status": "user created", "username": data['username']})
-    
-@api_bp.route('/login', methods=['POST'])
-def login_user():
-    data = request.get_json()
-    user = User.query.filter_by(username=data['username']).first()
-    if user and check_password_hash(user.password_hash, data['password']):
-        # using JWT for authentication 
-        token = generate_jwt(user)  # custom method to generate JWT token
-        return jsonify({"status": "success", "token": token})
-    return jsonify({"error": "Invalid credentials"}), 401
 
-@api_bp.route('/profile', methods=['GET'])
-@jwt_required()  # using Flask-JWT-Extended for JWT authentication
-def get_user_profile():
-    current_user = get_jwt_identity()  # get current user from JWT token
-    user = User.query.get(current_user['id'])
-    return jsonify({"username": user.username, "email": user.email})
-    
-@api_bp.route('/product/<int:product_id>/price-trend', methods=['GET'])
+@api_bp.route('/api/price_trend/<int:product_id>', methods=['GET'])
 def get_price_trend(product_id):
-    product = Product.query.get(product_id)
-    if not product:
-        return jsonify({"error": "Product not found"}), 404
-    # suppose we have a method to generate a price trend chart 
-    price_data = PriceData.query.filter_by(product_id=product_id).all()
-    dates = [price.date for price in price_data]
-    prices = [price.price for price in price_data]
-    img = generate_price_trend_chart(dates, prices)  # custom method to generate chart 
-    return send_file(img, mimetype='image/png')  
+    # search for the product in the database 
+    price_data = PriceData.query.filter_by(product_id=product_id).order_by(PriceData.date).all()
+    
+    if not price_data:
+        return jsonify({"error": "No data found for the given product_id"}), 404
 
+    labels = [entry.date.strftime('%Y-%m-%d') for entry in price_data] 
+    prices = [entry.price for entry in price_data] 
+    # building the dataset for the chart as rrequired by Chart.js
+    datasets = [
+        {
+            "label": f"Price Trend for Product {product_id}",
+            "data": [{"date": label, "value": price} for label, price in zip(labels, prices)],
+            "borderColor": "green",  
+            "fill": False,
+            "tension": 0.2
+        }
+    ]
+    return jsonify(datasets)
+'''
 @api_bp.route('/product/<int:product_id>/forecast', methods=['GET'])
 def get_price_forecast(product_id):
     product = Product.query.get(product_id)
@@ -147,7 +133,7 @@ def get_price_forecast(product_id):
     # using a custom method to predict price forecast 
     forecast_dates, forecast_prices = predict_price_forecast(product_id)  
     img = generate_forecast_chart(forecast_dates, forecast_prices) 
-    return send_file(img, mimetype='image/png')
+    return send_file(img, mimetype='image/png')'''
 
 #Where to use this function?
 @api_bp.route('/product/exists/<int:product_id>', methods=['GET'])
@@ -183,3 +169,29 @@ def get_data_for_product(product_id):
                 "latest_price": None,
                 "latest_price_date": None
             }
+'''
+@api_bp.route('/register', methods=['POST'])
+def register_user():
+    data = request.get_json()
+    new_user = User(username=data['username'], password_hash=hash_password(data['password']))
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"status": "user created", "username": data['username']})
+    
+@api_bp.route('/login', methods=['POST'])
+def login_user():
+    data = request.get_json()
+    user = User.query.filter_by(username=data['username']).first()
+    if user and check_password_hash(user.password_hash, data['password']):
+        # using JWT for authentication 
+        token = generate_jwt(user)  # custom method to generate JWT token
+        return jsonify({"status": "success", "token": token})
+    return jsonify({"error": "Invalid credentials"}), 401
+
+@api_bp.route('/profile', methods=['GET'])
+@jwt_required()  # using Flask-JWT-Extended for JWT authentication
+def get_user_profile():
+    current_user = get_jwt_identity()  # get current user from JWT token
+    user = User.query.get(current_user['id'])
+    return jsonify({"username": user.username, "email": user.email})
+'''   
