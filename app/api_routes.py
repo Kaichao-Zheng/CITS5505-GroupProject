@@ -124,6 +124,11 @@ def get_price_trend(product_id):
         }
     ]
     return jsonify(datasets)
+
+@api_bp.route('/forecast-data', methods=['GET'])
+def forecast_data():
+    data = [{"date": str(pd.date), "price": pd.price} for pd in PriceData.query.all()]
+    return jsonify(data)
 '''
 @api_bp.route('/product/<int:product_id>/forecast', methods=['GET'])
 def get_price_forecast(product_id):

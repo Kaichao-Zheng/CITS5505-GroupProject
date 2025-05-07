@@ -5,6 +5,7 @@ import os
 from .forms import LoginForm
 
 app = Flask(__name__)
+app.config['DEBUG'] = True
 app.config.from_pyfile('../instance/config.py')
 db.init_app(app)
 migrate.init_app(app, db)
@@ -15,6 +16,7 @@ app.config['UPLOAD_FOLDER'] = 'static/images'
 @app.before_request
 def before_request():
     g.form = LoginForm() 
+    print("g.form initialized")
 
 @app.route('/')
 def index():

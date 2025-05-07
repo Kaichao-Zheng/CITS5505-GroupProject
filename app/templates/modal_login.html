@@ -8,19 +8,19 @@
     <div class="modal-body">
         <form action="" method="post" novalidate>
             <!-- CSRF token for security -->
-            {{ form.hidden_tag() }}
+            {{ g.form.hidden_tag() }}
             <!-- Username input box -->
             <div class="mb-3">
-                {{ form.username.label(class="form-label") }}
-                {{ form.username(class="form-control") }}
+                {{ g.form.username.label(class="form-label") }}
+                {{ g.form.username(class="form-control") }}
             </div>
             <!-- Password input box -->
             <div class="mb-3">
-                {{ form.password.label(class="form-label") }}
-                {{ form.password(class="form-control") }}
+                {{ g.form.password.label(class="form-label") }}
+                {{ g.form.password(class="form-control") }}
             </div>
             <!-- Submit button -->
-            {{ form.submit(class="btn btn-primary") }}
+            {{ g.form.submit(class="btn btn-primary") }}
         </form>
     </div>
 {% endblock %}
