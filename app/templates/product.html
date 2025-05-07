@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block import_JS %}
+    <!-- Pass imageFolder URL to concatenate with product.image_url in product.js -->
+    <script>const imageFolder = "{{ url_for('static', filename='img/products/') }}";</script>
     <script src="{{ url_for('static', filename='product.js') }}"></script>
 {% endblock %}
 
@@ -18,9 +20,3 @@
         <button class="btn btn-success rounded-pill px-4" onclick="loadMore()">Load more</button>
     </div>
 {% endblock %}
-
-{#
-    To Tony,
-    The CSS code has been moved to "static/product.css",
-    the JS code has been moved to "static/product.js"
-#}

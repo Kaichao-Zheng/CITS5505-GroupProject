@@ -14,7 +14,7 @@ function loadMore(count = 6) {
                 card.innerHTML = `
                     <div class="product-card">
                         <div class="product-img">
-                            <img src="${products[i].image_url}" alt="${products[i].name}" class="img-fluid w-100" style="max-height: 360px; object-fit: contain;">
+                            <img src="${imageFolder}${products[i].image_url}" alt="${products[i].name}" class="img-fluid w-100" style="max-height: 360px; object-fit: contain;">
                         </div>
                         <p class="mt-2 mb-1">${products[i].name}</p>
                         <span class="badge bg-success">Shop</span>
