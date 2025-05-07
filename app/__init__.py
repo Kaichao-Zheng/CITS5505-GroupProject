@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_from_directory, g
 from app.db_models import db, migrate, login
 from app.api_routes import api_bp
 import os
-from .forms import LoginForm
+from .forms import LoginForm, RegistrationForm
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -15,12 +15,14 @@ app.config['UPLOAD_FOLDER'] = 'static/images'
 
 @app.before_request
 def before_request():
-    g.form = LoginForm() 
-    print("g.form initialized")
+    g.login_form = LoginForm()
+    print("g.login_form initialized")
+    g.register_form = RegistrationForm()
+    print("g.login_form initialized")
 
 @app.route('/')
 def index():
-    return render_template('index.html', form=g.form)  \
+    return render_template('index.html', login_form=g.login_form, register_form=g.register_form)
 
 @app.route('/favicon.ico')
 def favicon():
