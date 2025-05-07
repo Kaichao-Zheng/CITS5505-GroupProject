@@ -21,7 +21,7 @@ function loadMore(count = 6) {
                         <a class="btn btn-sm btn-primary float-end"
                             href="#"
                             data-bs-toggle="modal"
-                            data-bs-target="#trendModal">
+                            data-bs-target="#trendModal"
                             data-product-id="${products[i].id}">  <!-- Add product ID -->
                             View Trend
                         </a>
