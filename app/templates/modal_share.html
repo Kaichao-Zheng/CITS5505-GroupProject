@@ -6,13 +6,26 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>
     <div class="modal-body">
-        <form>
-            <!-- Certain features -->
+        <form id="shareForm">
+            <!-- get product id -->
             <div class="mb-3">
-                Share placeholder here.
+                <label for="product-id" class="form-label">Input product ID:</label>
+                <input type="number" class="form-control" id="product-id" placeholder="Enter product ID" required>
+            </div>
+
+            <!-- get sender id -->
+            <div class="mb-3">
+                <label for="sender-id" class="form-label">Input sender's user ID:</label>
+                <input type="number" class="form-control" id="sender-id" placeholder="Enter sender's user ID" required>
+            </div>
+
+            <!-- get receiver id -->
+            <div class="mb-3">
+                <label for="receiver-id" class="form-label">Input receiver's user ID:</label>
+                <input type="number" class="form-control" id="receiver-id" placeholder="Enter receiver's user ID" required>
             </div>
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary">Share</button>
+            <button type="submit" class="btn btn-primary" id="shareButton">Share</button>
         </form>
     </div>
 {% endblock %}
