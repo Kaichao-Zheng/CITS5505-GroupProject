@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>
     <div class="modal-body">
-        <form action="#" method="post" novalidate>
+        <form action="/api/register" method="post" novalidate>
             <!-- CSRF token for security -->
             {{ register_form.hidden_tag() }}
             <!-- Username -->
