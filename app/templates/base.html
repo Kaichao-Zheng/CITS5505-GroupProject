@@ -60,6 +60,7 @@
                     </form>
                     <!-- Navigation links -->
                     <ul class="navbar-nav ms-auto align-items-center">
+                        {% if current_user.is_anonymous %}
                         <li class="nav-item">
                             <a class="nav-link"
                                 href="#"
@@ -68,6 +69,13 @@
                                 Login
                             </a>
                         </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('logout') }}">
+                                Logout
+                            </a>
+                        </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link"
                                 href="#"
@@ -84,9 +92,11 @@
                                 Share
                             </a>
                         </li>
+                        {% if current_user.is_authenticated %}
                         <li class="bd-helper nav-item dropdown">
                             {% include "notification.html" %}
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -96,8 +106,9 @@
     {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
             {% for color, message in messages %}
-                <div class="alert alert-{{ color }}" role="alert">
+                <div class="alert alert-{{ color }} alert-dismissible fade show text-center" role="alert">
                     {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             {% endfor %}
         {% endif %}
@@ -109,6 +120,11 @@
     </div>
     {# ======================= Modal Render Section ======================= #}
     
+    {% if enable_modal_register %}
+        {% set modal_id = "registerModal" %}
+        {% include "modal_register.html" %}
+    {% endif %}
+
     {% set modal_id = "loginModal" %}
     {% include "modal_login.html" %}
 

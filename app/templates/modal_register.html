@@ -1,0 +1,41 @@
+{% extends "modal.html" %}
+
+{% block modal_content %}
+    <div class="modal-header">
+        <h5 class="modal-title">Register</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body">
+        <form action="{{ url_for('register') }}" method="post" novalidate>
+            <!-- CSRF token for security -->
+            {{ register_form.hidden_tag() }}
+            <!-- Username -->
+            <div class="mb-3">
+                {{ register_form.username.label(class="form-label") }}
+                {{ register_form.username(class="form-control") }}
+            </div>
+            <!-- Email -->
+            <div class="mb-3">
+                {{ register_form.email.label(class="form-label") }}
+                {{ register_form.email(class="form-control") }}
+            </div>
+            <!-- Password -->
+            <div class="mb-3">
+                {{ register_form.password.label(class="form-label") }}
+                {{ register_form.password(class="form-control") }}
+            </div>
+            <!-- Confirm password -->
+            <div class="mb-3">
+                {{ register_form.confirm.label(class="form-label") }}
+                {{ register_form.confirm(class="form-control") }}
+            </div>
+            <!-- User type -->
+            <div class="mb-3">
+                {{ register_form.user_type.label(class="form-label") }}
+                {{ register_form.user_type(class="form-select") }}
+            </div>
+            <!-- Submit button -->
+            {{ register_form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+{% endblock %}
