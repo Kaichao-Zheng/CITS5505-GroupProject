@@ -16,72 +16,6 @@ import csv, os
 
 api_bp = Blueprint('api', __name__)
 
-
-@api_bp.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(request.referrer or url_for('index'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, user_type=form.user_type.data)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        # Success registration
-        login_user(user)        # Auto login
-        flash(f'Hi {form.username.data}, welcome to Price Trend !', 'success')
-        return redirect(request.referrer)
-    else:
-        errors = []
-        for field in form:
-            for err in field.errors:
-                errors.append(err)
-        if errors:
-            if len(errors) == 1:
-                msg = f"{errors[0]} is required."
-            else:
-                msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
-            flash(f"Registration failed: {msg.capitalize()}", 'danger')
-    return redirect(request.referrer)
-
-
-@api_bp.route('/login', methods=['GET', 'POST'])            # Updated in routes.handle_login_post()
-def login():
-    form = g.login_form
-    if form.validate_on_submit():
-        user = db.session.scalar(sa.select(User).where(User.username == form.username.data))
-        # failed login
-        if user is None or not user.check_password(form.password.data):
-            flash('Login failed: Invalid username or password', 'danger')
-            # return redirect(request.path)
-            return redirect(request.referrer)
-        # successful login
-        login_user(user)
-        flash(f'Welcome back, {form.username.data} !', 'success')
-        # return redirect(request.path)
-        return redirect(request.referrer)
-    else:
-        errors = []
-        for field in form:
-            for err in field.errors:
-                errors.append(field.label.text)
-        if errors:
-            if len(errors) == 1:
-                msg = f"{errors[0]} is required."
-            else:
-                msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
-            flash(f"Login failed: {msg.capitalize()}", 'danger')
-    return redirect(request.referrer)
-
-
-@login_required
-@api_bp.route('/logout')
-def logout():
-    logout_user()
-    flash('You have been logged out.', 'warning')
-    return redirect(request.referrer)
-
-
 @api_bp.route('/merchants', methods=['GET'])
 def get_all_merchants():
     merchants = Merchant.query.all()
@@ -246,24 +180,6 @@ def get_data_for_product(product_id):
                 "latest_price_date": None
             }
 '''
-@api_bp.route('/register', methods=['POST'])    # Has been implemented in routes.py
-def register_user():
-    data = request.get_json()
-    new_user = User(username=data['username'], password_hash=hash_password(data['password']))
-    db.session.add(new_user)                    # doesn't work because the user_type and email are not nullable in db_models.py
-    db.session.commit()
-    return jsonify({"status": "user created", "username": data['username']})
-    
-@api_bp.route('/login', methods=['POST'])       # Has been implemented in routes.py
-def login_user():
-    data = request.get_json()
-    user = User.query.filter_by(username=data['username']).first()
-    if user and check_password_hash(user.password_hash, data['password']):
-        # using JWT for authentication 
-        token = generate_jwt(user)  # custom method to generate JWT token
-        return jsonify({"status": "success", "token": token})
-    return jsonify({"error": "Invalid credentials"}), 401
-
 @api_bp.route('/profile', methods=['GET'])
 @jwt_required()  # using Flask-JWT-Extended for JWT authentication
 def get_user_profile():
