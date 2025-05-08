@@ -10,92 +10,78 @@
 {% endblock %}
 
 {% block content %}
-    <div class="section-box d-flex mb-2">
-        <div class="col">
-            <h1><strong>Search</strong> products & view historical price trends</h1>
-            <div class="shadow p-3 mb-5 bg-white rounded">
-              <p>
-                Discover smarter shopping with our powerful product search and price tracking tools. Instantly search for products across categories and explore detailed historical price trends to make confident, informed buying decisions. Stay ahead of sales, spot genuine discounts, and never overpay again!
-              </p>
+    <div class="container py-3">
+        <div class="row section-box mb-2 align-items-center">
+            <div class="col-12 col-md-6 mb-3 mb-md-0">
+                <h1 class="h3"><strong>Search</strong> products & view historical price trends</h1>
+                <div class="shadow p-3 mb-4 bg-white rounded">
+                    <p>
+                        Discover smarter shopping with our powerful product search and price tracking tools. Instantly search for products across categories and explore detailed historical price trends to make confident, informed buying decisions. Stay ahead of sales, spot genuine discounts, and never overpay again!
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex justify-content-center">
+                <img src="{{ url_for('static', filename='img/Price-Comparison-2.webp') }}" alt="Forecasting" class="img-fluid img-shadow-glow" style="max-height:300px;">
             </div>
         </div>
-        <div class="col d-flex justify-content-center" style="mask-image: radial-gradient(ellipse closest-side, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%); -webkit-mask-image: radial-gradient(ellipse closest-side, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);">
-            <img src="{{ url_for('static', filename='img/Price-Comparison-2.webp') }}" alt="Forecasting" style="height: 300px;">
-        </div>
-    </div>
-    <div class="section-box d-flex mb-2">
-        <div class="col">
-            <h1> <strong>Predict</strong>  future prices with our forecasting system</h1>
-            <div class="shadow p-3 mb-5 bg-white rounded">
-                <p>
-                  Use our advanced graphing system to analyze current trends and predict future prices with confidence. Make informed decisions before the market shifts, giving you a real competitive edge.
-                </p>
+        <div class="row section-box mb-2 align-items-center flex-md-row-reverse">
+            <div class="col-12 col-md-6 mb-3 mb-md-0">
+                <h1 class="h3"><strong>Predict</strong> future prices with our forecasting system</h1>
+                <div class="shadow p-3 mb-4 bg-white rounded">
+                    <p>
+                        Use our advanced graphing system to analyze current trends and predict future prices with confidence. Make informed decisions before the market shifts, giving you a real competitive edge.
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex justify-content-center">
+                <img src="{{ url_for('static', filename='img/predict-future-prices.webp') }}" alt="Forecasting" class="img-fluid" style="max-height:260px;">
             </div>
         </div>
-        <div class="col d-flex justify-content-center">
-            <img src="{{ url_for('static', filename='img/predict-future-prices.webp') }}" alt="Forecasting" style="height: 260px;">
-        </div>
-    </div>
-    <div class="section-box d-flex mb-2">
-        <div class="col">
-            <h1> <strong>Upload</strong>  your pricing data to generate insights</h1>
-            <div class="shadow p-3 mb-5 bg-white rounded">
-                <p>
-                  Are you a merchant? Upload your pricing data and unlock powerful insights! Compare your prices against competitors, discover market trends, and identify opportunities to optimize your strategy. Stay one step ahead and dominate your market with data-driven decisions.
-                </p>
+        <div class="row section-box mb-2 align-items-center">
+            <div class="col-12 col-md-6 mb-3 mb-md-0">
+                <h1 class="h3"><strong>Upload</strong> your pricing data to generate insights</h1>
+                <div class="shadow p-3 mb-4 bg-white rounded">
+                    <p>
+                        Are you a merchant? Upload your pricing data and unlock powerful insights! Compare your prices against competitors, discover market trends, and identify opportunities to optimize your strategy. Stay one step ahead and dominate your market with data-driven decisions.
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex justify-content-center">
+                <img src="{{ url_for('static', filename='img/upload-generate-insights-2.png') }}" alt="Forecasting" class="img-fluid" style="max-height:260px;">
             </div>
         </div>
-        <div class="col d-flex justify-content-center">
-            <img src="{{ url_for('static', filename='img/upload-generate-insights-2.png') }}" alt="Forecasting" style="height: 260px;">
-        </div>
-    </div>
-
-    <div class="section-box mb-2">
-    <div class="row">
-        <div class="col-3">
-            <div>
-                <h1> Ready to get started?</h1>
-                <div class="">
-                    <a class="btn btn-light me-2" href="#" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#loginModal">
-                        Login
-                    </a>
-                    <a class="btn btn-primary" href="#"
-                        data-bs-toggle="modal" 
-                        data-bs-target="#registerModal">
-                        Register
-                    </a>
+        <div class="row section-box mb-2 align-items-center">
+            <div class="col-12 col-lg-4 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
+                <h1 class="h4 mb-3">Ready to get started?</h1>
+                <div class="d-flex flex-column flex-md-row gap-2">
+                    <a class="btn btn-light w-100 w-md-auto" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                    <a class="btn btn-primary w-100 w-md-auto" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+                </div>
+            </div>
+            <div class="col-12 col-lg-8">
+                <div class="row g-3">
+                    <div class="col-12 col-md-4">
+                        <figure class="w-100" style="aspect-ratio:1/1; overflow: hidden; border-radius: 12px;">
+                            <img src="{{ url_for('static', filename='img/predict-picture-2.jpeg') }}" class="img-fluid w-100 h-100" style="object-fit: cover;" alt="Predict">
+                            <figcaption class="text-center">Predict</figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <figure onclick="scrollToSearch()" style="cursor: pointer; aspect-ratio:1/1; overflow: hidden; border-radius: 12px;" class="w-100">
+                            <img src="{{ url_for('static', filename='img/search-product.webp') }}" class="img-fluid w-100 h-100" style="object-fit: cover;" alt="Search">
+                            <figcaption class="text-center">Search</figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <a class="text-white mb-0 nav-link" href="#" data-bs-toggle="modal" data-bs-target="#shareModal">
+                            <figure class="w-100" style="aspect-ratio:1/1; overflow: hidden; border-radius: 12px;">
+                                <img src="{{ url_for('static', filename='img/sharing.avif') }}" class="img-fluid w-100 h-100" style="object-fit: cover;" alt="Share">
+                                <figcaption class="text-center">Share</figcaption>
+                            </figure>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-8">
-            <div class="row">
-                <div class="col-4">
-                    <figure style="width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
-                        <img src="{{ url_for('static', filename='img/predict-picture-2.jpeg') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Predict">
-                        <figcaption>Predict</figcaption>
-                    </figure>
-                </div>
-                <div class="col-4">
-                    <figure onclick="scrollToSearch()" style="cursor: pointer; width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
-                        <img src="{{ url_for('static', filename='img/search-product.webp') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Search">
-                        <figcaption>Search</figcaption>
-                    </figure>
-                </div>
-                <div class="col-4">
-                <a class="text-white mb-0 nav-link"
-                    href="#"
-                    data-bs-toggle="modal"
-                    data-bs-target="#shareModal">
-                    <figure style="width: 260px; height: 260px; overflow: hidden; border-radius: 12px;">
-                        <img src="{{ url_for('static', filename='img/sharing.avif') }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Share">
-                        <figcaption>Share</figcaption>
-                    </figure>
-                </a>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
 {% endblock %}

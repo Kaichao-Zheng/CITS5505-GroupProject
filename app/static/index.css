@@ -1,12 +1,18 @@
 .section-box {
     background: linear-gradient(90deg, rgba(224, 247, 250, 0.8) 0%, rgba(179, 229, 252, 0.8) 35%, rgba(129, 212, 250, 0.8) 100%);
-    background-size: cover;         
-    background-position: center;    
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
-    width: 100%;                    
-    border-radius: 10px;             
+    /* width: 100%; */
+    border-radius: 10px;
     padding: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 0;
+}
+
+/* Only affect .my-3 inside .bd-helper */
+.bd-helper .py-3 {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }
 
 figure {
