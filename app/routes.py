@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from datetime import datetime, timedelta
 from app import app, db
-from app.db_models import User
+from app.db_models import User, Merchant
 from app.forms import LoginForm, RegistrationForm
 import os
 
@@ -13,7 +13,6 @@ def before_request():
     if request.accept_mimetypes.accept_html:
         g.login_form = LoginForm()
         g.register_form = RegistrationForm()
-        print("Init login_form and register_form")
 
 # TODO: Add new file for context_processor and import here!
 # context_processor has been added because we need to reload all the notifications for the users everytime a new route has been called.
@@ -28,6 +27,11 @@ def inject_notifications():
         {"sender": "Alex", "product": "iPhone", "message": "JB Hi-Fi has deals!"},
     ]
     return dict(notifications=notifications)
+
+@app.context_processor
+def request_mechants():
+    merchants = Merchant.query.all()
+    return dict(merchants=merchants)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
