@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>
     <div class="modal-body">
-        <form action="api/login" method="post" novalidate>
+        <form action="{{ url_for('api.login') }}" method="post" novalidate>
             <!-- CSRF token for security -->
             {{ login_form.hidden_tag() }}
             <!-- Username input box -->

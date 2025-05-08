@@ -5,6 +5,8 @@ from datetime import datetime
 from flask import Blueprint, request, jsonify, current_app, url_for, send_file, redirect, flash, g
 from flask_login import current_user, login_user, login_required, logout_user
 
+from app.db_models import db, Product, Merchant, PriceData, Share, User
+from app.forms import RegistrationForm
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
 
@@ -17,7 +19,6 @@ api_bp = Blueprint('api', __name__)
 
 @api_bp.route('/register', methods=['GET', 'POST'])
 def register():
-    from app import RegistrationForm
     if current_user.is_authenticated:
         return redirect(request.referrer or url_for('index'))
     form = RegistrationForm()
@@ -70,7 +71,7 @@ def login():
             else:
                 msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
             flash(f"Login failed: {msg.capitalize()}", 'danger')
-    return None
+    return redirect(request.referrer)
 
 
 @login_required
