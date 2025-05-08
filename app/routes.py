@@ -1,5 +1,5 @@
 
-from flask import render_template, redirect, url_for, flash, request, jsonify, g, send_from_directory
+from flask import render_template, redirect, flash, request, jsonify, g, send_from_directory
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from datetime import datetime, timedelta
@@ -91,7 +91,6 @@ def handle_login_post():
                 msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
             flash(msg.capitalize(), 'danger')
     return None
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
