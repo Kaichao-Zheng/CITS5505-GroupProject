@@ -59,7 +59,7 @@ pip install python-dotenv
 
 * Check current version
 
-  ```
+  ```bash
   flask db current
 
 * Check history versions
@@ -76,7 +76,7 @@ pip install python-dotenv
 
 **GUI Access**
 
-⭐`SQLite Viewer` is a light-weight graphical extension in VSCode for browsing and interacting with SQLite.
+⭐`SQLite Viewer` is a light-weight graphical extension in VSCode for browsing SQLite.
 
 **Manual Operations**
 
@@ -127,13 +127,14 @@ Delete the user `where id='1'`
 ## High-Priority Tasks
 
 - [x] Convert hardcoded HTML into Jinja blocks
-- [ ] Design **JavaScript** to interact backend routes defined by `@app.route()` or `@api_bp.route()`
+- [x] Design **JavaScript** to interact backend routes defined by `@app.route()` or `@api_bp.route()`
+- [ ] Insufficient price data in `site.db`
 - [ ] To be continued
 
 ## Known Challenges
 
-- [ ] Dynamic CSR in search result
-- [ ] Line chart visualization
+- [x] Dynamic CSR in search result
+- [x] Line chart visualization
 - [ ] Price prediction and visualization
 - [ ] Reuse search functionality in "share user selection"
 - [ ] [Optional] Real-time fuzzy search

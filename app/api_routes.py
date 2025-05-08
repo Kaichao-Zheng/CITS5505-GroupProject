@@ -1,20 +1,17 @@
-
-from flask import Blueprint, request, jsonify, current_app, url_for, send_file 
-from app.db_models import db, Product, Merchant, PriceData, Share, User
-import os
-import csv
 import sqlalchemy as sa
-from datetime import datetime
 from sqlalchemy import func
-from werkzeug.utils import secure_filename
+from datetime import datetime
+
 from flask import Blueprint, request, jsonify, current_app, url_for, send_file, redirect, flash, g
 from flask_login import current_user, login_user, login_required, logout_user
 
 from app.db_models import db, Product, Merchant, PriceData, Share, User
 from app.forms import RegistrationForm
+from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
+
+from app.db_models import db, Product, Merchant, PriceData, Share, User
 from app.utils import allowed_file
-from sqlalchemy import func
 import csv, os
 
 api_bp = Blueprint('api', __name__)
@@ -48,7 +45,7 @@ def register():
     return redirect(request.referrer)
 
 
-@api_bp.route('/login', methods=['GET', 'POST'])
+@api_bp.route('/login', methods=['GET', 'POST'])            # Updated in routes.handle_login_post()
 def login():
     form = g.login_form
     if form.validate_on_submit():
@@ -249,15 +246,15 @@ def get_data_for_product(product_id):
                 "latest_price_date": None
             }
 '''
-@api_bp.route('/register', methods=['POST'])
+@api_bp.route('/register', methods=['POST'])    # Has been implemented in routes.py
 def register_user():
     data = request.get_json()
     new_user = User(username=data['username'], password_hash=hash_password(data['password']))
-    db.session.add(new_user)
+    db.session.add(new_user)                    # doesn't work because the user_type and email are not nullable in db_models.py
     db.session.commit()
     return jsonify({"status": "user created", "username": data['username']})
     
-@api_bp.route('/login', methods=['POST'])
+@api_bp.route('/login', methods=['POST'])       # Has been implemented in routes.py
 def login_user():
     data = request.get_json()
     user = User.query.filter_by(username=data['username']).first()
