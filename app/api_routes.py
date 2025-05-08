@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash 
 from app.utils import allowed_file 
 from sqlalchemy import func
-import csv, os
+import csv, os, io
 
 api_bp = Blueprint('api', __name__)
 
@@ -19,32 +19,23 @@ def get_all_merchants():
 def upload_csv():
     if 'file' not in request.files:
         return jsonify({"error": "No file part"}), 400
-
     file = request.files['file']
 
     if file and file.filename.endswith('.csv'):
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-        file.save(file_path)
-
-        # parse the CSV file and insert data into the database 
         try:
-            with open(file_path, 'r') as csvfile:
-                csvreader = csv.DictReader(csvfile) 
-                for row in csvreader:
-                    product_id = row['product_id']
-                    price = float(row['price'])
-                    date = datetime.strptime(row['date'], '%Y-%m-%d').date()
-                    new_price = PriceData(product_id=product_id, price=price, date=date)
-                    db.session.add(new_price)
-                
-                db.session.commit()  
+            stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
+            csvreader = csv.DictReader(stream)
 
+            for row in csvreader:
+                product_id = row['product_id']
+                price = float(row['price'])
+                date = datetime.strptime(row['date'], '%Y-%m-%d').date()
+                new_price = PriceData(product_id=product_id, price=price, date=date)
+                db.session.add(new_price)
+            db.session.commit()  
             return jsonify({"message": "File uploaded and data inserted successfully."}), 200
-        
         except Exception as e:
             return jsonify({"error": str(e)}), 500
-    
     return jsonify({"error": "Invalid file type, only CSV files are allowed."}), 400
 
 @api_bp.route('/upload_image', methods=['POST'])
