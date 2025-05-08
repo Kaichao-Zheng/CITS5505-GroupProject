@@ -71,7 +71,7 @@ def login():
             else:
                 msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
             flash(f"Login failed: {msg.capitalize()}", 'danger')
-    return None
+    return redirect(request.referrer)
 
 
 @login_required
