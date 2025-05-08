@@ -11,7 +11,7 @@ from flask import Blueprint, request, jsonify, current_app, url_for, send_file, 
 from flask_login import current_user, login_user, login_required, logout_user
 
 from app.db_models import db, Product, Merchant, PriceData, Share, User
-from app.utils import allowed_file
+from app.forms import RegistrationForm
 from werkzeug.security import check_password_hash
 from app.utils import allowed_file
 from sqlalchemy import func
@@ -22,7 +22,6 @@ api_bp = Blueprint('api', __name__)
 
 @api_bp.route('/register', methods=['GET', 'POST'])
 def register():
-    from app import RegistrationForm
     if current_user.is_authenticated:
         return redirect(request.referrer or url_for('index'))
     form = RegistrationForm()
