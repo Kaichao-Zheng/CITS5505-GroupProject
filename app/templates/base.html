@@ -38,6 +38,8 @@
     <!-- File Upload -->
     <script src="{{ url_for('static', filename='file-upload.js') }}"></script>
 
+    <!-- Toast Message -->
+    <script src="{{ url_for('static', filename='toast.js') }}"></script>
 </head>
 <body class="container">
     <!-- Navigation bar -->
@@ -117,6 +119,10 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
+
+    <!-- Toast container -->
+    <div id="toastContainer" aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055;"></div>
+
     <!-- Main content area for inheritance -->
     <div class="bd-helper my-3">
         {% block content %}
