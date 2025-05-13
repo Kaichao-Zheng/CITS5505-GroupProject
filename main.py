@@ -1,8 +1,12 @@
-from app import app, db
-from app.db_models import User, Merchant, Upload, Product, PriceData, Share
-from datetime import date
-import sqlalchemy as sa
+# Defined in .flaskenv as the entry point for the Flask application
 
-@app.shell_context_processor
-def make_shell_context():
-    return {'sa': sa, 'db': db, 'date': date, 'User': User, 'Merchant': Merchant, 'Upload': Upload, 'Product': Product, 'PriceData': PriceData, 'Share': Share}
+from app import create_app, db
+from app.db_models import migrate
+from instance.config import DeploymentConfig, TestConfig
+
+'''Switch to normal database `instance/site.db`'''
+flaskApp = create_app(DeploymentConfig)
+migrate.init_app(flaskApp, db)
+
+'''Switch to in-memory database for testing'''
+# testApp = create_app(TestConfig)                  # flask-migrate is unnecessary when testing with in-memory database
