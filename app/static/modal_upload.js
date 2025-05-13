@@ -22,30 +22,26 @@ $(document).ready(function() {
             }
         });
     });
+    $('#uploadImageForm').on('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
 
-    // process the form submission
-    $('#uploadImageForm').submit(function(event) {
-        event.preventDefault();  // prevent the default form submission 
-
-        const formData = new FormData(this);  // create a FormData object from the form  
-
-        // send AJAX request to the backend to upload the file
         $.ajax({
-            url: '/api/upload_csv',  // backend API to upload the file
+            url: '/api/upload_csv',
             method: 'POST',
             data: formData,
-            processData: false,  // not letting jQuery process the data 
-            contentType: false,  // not setting any content type header
-            success: function(response) {
-                if (response.message === 'File uploaded successfully') {
-                    $('#uploadResult').html('<p>CSV uploaded successfully!</p>');
-                } else {
-                    $('#uploadResult').html('<p>Error: ' + response.error + '</p>');
-                }
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success(res) {
+                displayToastMessage([ res.message || 'Upload successful!' ]);
+                this.reset();
+                $('#uploadModal').modal('hide');
             },
-            error: function(error) {
-                console.error('Error uploading file:', error);
-                $('#uploadResult').html('<p>Failed to upload file. Please try again later.</p>');
+            error(xhr) {
+                console.error('Error uploading file:', xhr);
+                const msg = xhr.responseJSON?.error || 'Upload failed. Please try again.';
+                displayToastMessage([ msg ]);
             }
         });
     });
