@@ -1,5 +1,5 @@
 
-from flask import render_template, redirect, url_for, flash, request, jsonify, g, send_from_directory
+from flask import render_template, redirect, flash, request, jsonify, g, send_from_directory
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from datetime import datetime, timedelta
@@ -73,7 +73,7 @@ def handle_login_post():
             sa.select(User).where(User.username == form.username.data))
         # failed login
         if user is None or not user.check_password(form.password.data):
-            flash('Login failed: Invalid username or password', 'danger')
+            flash('Invalid username or password', 'danger')
             return redirect(request.path)
         # successful login
         login_user(user)
@@ -89,9 +89,8 @@ def handle_login_post():
                 msg = f"{errors[0]} is required."
             else:
                 msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
-            flash(f"Login failed: {msg.capitalize()}", 'danger')
+            flash(msg.capitalize(), 'danger')
     return None
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -108,16 +107,24 @@ def register():
         flash(f'Hi {form.username.data}, welcome to Price Trend !', 'success')
         return redirect(request.referrer)
     else:
-        errors = []
+        empty_errors = []
+        other_errors = []
+        
         for field in form:
             for err in field.errors:
-                errors.append(err)
-        if errors:
-            if len(errors) == 1:
-                msg = f"{errors[0]} is required."
+                if err == 'This field is required.':
+                    empty_errors.append(field.label.text)
+                else:
+                    other_errors.append(err)
+        if empty_errors:
+            if len(empty_errors) == 1:
+                msg = f"{empty_errors[0]} is required."
             else:
-                msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
-            flash(f"Registration failed: {msg.capitalize()}", 'danger')
+                msg = f"{', '.join(empty_errors[:-1])} and {empty_errors[-1]} are required."
+            flash(msg.capitalize(), 'danger')
+        
+        for err in other_errors:
+            flash(err, 'danger')
     return redirect(request.referrer)
 
 # may should be moved to api_routes.py and access via localhost:5000/api/forecast-data ?

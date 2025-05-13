@@ -1,11 +1,17 @@
-
-from flask import Blueprint, request, jsonify, current_app, url_for, send_file 
-from app.db_models import db, Product, Merchant, PriceData, Share, User
-from datetime import datetime
-from werkzeug.utils import secure_filename
-from werkzeug.security import check_password_hash 
-from app.utils import allowed_file 
+import sqlalchemy as sa
 from sqlalchemy import func
+from datetime import datetime
+
+from flask import Blueprint, request, jsonify, current_app, url_for, send_file, redirect, flash, g
+from flask_login import current_user, login_user, login_required, logout_user
+
+from app.db_models import db, Product, Merchant, PriceData, Share, User
+from app.forms import RegistrationForm
+from werkzeug.utils import secure_filename
+from werkzeug.security import check_password_hash
+
+from app.db_models import db, Product, Merchant, PriceData, Share, User
+from app.utils import allowed_file
 import csv, os, io
 
 api_bp = Blueprint('api', __name__)
@@ -21,6 +27,10 @@ def upload_csv():
         return jsonify({"error": "No file part"}), 400
     file = request.files['file']
 
+    merchant_id = request.form.get('merchant_id')
+    if not merchant_id:
+        return jsonify({"error": "Missing merchant_id"}), 400
+
     if file and file.filename.endswith('.csv'):
         try:
             stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
@@ -30,7 +40,12 @@ def upload_csv():
                 product_id = row['product_id']
                 price = float(row['price'])
                 date = datetime.strptime(row['date'], '%Y-%m-%d').date()
-                new_price = PriceData(product_id=product_id, price=price, date=date)
+                new_price = PriceData(
+                    product_id=product_id,
+                    price=price,
+                    date=date,
+                    merchant_id=merchant_id
+                )
                 db.session.add(new_price)
             db.session.commit()  
             return jsonify({"message": "File uploaded and data inserted successfully."}), 200
@@ -130,11 +145,19 @@ def get_price_forecast(product_id):
     img = generate_forecast_chart(forecast_dates, forecast_prices) 
     return send_file(img, mimetype='image/png')'''
 
-#Where to use this function?
 @api_bp.route('/product/exists/<int:product_id>', methods=['GET'])
 def check_product_exists(product_id):
-    exists = Product.query.get(product_id) is not None
-    return jsonify({"exists": exists})
+    product = Product.query.get(product_id)
+    if product:
+        return jsonify({
+            "exists": True,
+            "product": {
+                "id": product.id,
+                "name": product.name
+            }
+        })
+    else:
+        return jsonify({"exists": False, "product": None})
 
 #Where to use this function?
 @api_bp.route('/product/<int:product_id>/data', methods=['GET'])
@@ -165,24 +188,6 @@ def get_data_for_product(product_id):
                 "latest_price_date": None
             }
 '''
-@api_bp.route('/register', methods=['POST'])
-def register_user():
-    data = request.get_json()
-    new_user = User(username=data['username'], password_hash=hash_password(data['password']))
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify({"status": "user created", "username": data['username']})
-    
-@api_bp.route('/login', methods=['POST'])
-def login_user():
-    data = request.get_json()
-    user = User.query.filter_by(username=data['username']).first()
-    if user and check_password_hash(user.password_hash, data['password']):
-        # using JWT for authentication 
-        token = generate_jwt(user)  # custom method to generate JWT token
-        return jsonify({"status": "success", "token": token})
-    return jsonify({"error": "Invalid credentials"}), 401
-
 @api_bp.route('/profile', methods=['GET'])
 @jwt_required()  # using Flask-JWT-Extended for JWT authentication
 def get_user_profile():

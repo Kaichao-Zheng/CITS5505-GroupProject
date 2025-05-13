@@ -14,18 +14,21 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
-    confirm = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    user_type = SelectField('User Type', choices=[('', 'Select one...'), ('merchant', 'Merchant'), ('user', 'User')], 
-                            validators=[DataRequired()])
+    confirm = PasswordField('Confirm Password', validators=[DataRequired()])
+    user_type = SelectField('User Type', choices=[('', 'Select one...'), ('merchant', 'Merchant'), ('user', 'User')], validators=[DataRequired()])
     submit = SubmitField('Register')
 
-    # not be used yet
+    # Flask-WTF automatically calls validate_<field_name> methods during form.validate_on_submit()
     def validate_username(self, username):
         user = db.session.scalar(sa.select(User).where(User.username == username.data))
         if user is not None:
-            raise ValidationError('Please use a different username.')
+            raise ValidationError('Username is already in use.')
 
     def validate_email(self, email):
         user = db.session.scalar(sa.select(User).where(User.email == email.data))
         if user is not None:
-            raise ValidationError('Please use a different email address.')
+            raise ValidationError('Email is already in use.')
+    
+    def validate_confirm(self, confirm):
+        equal_validator = EqualTo('password', message='Passwords do not match.')
+        equal_validator(self, confirm)

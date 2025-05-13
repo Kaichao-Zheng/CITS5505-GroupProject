@@ -111,6 +111,7 @@
     <!-- flash message area -->
     {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
+            <!-- Each flash message appears in its own alert box -->
             {% for color, message in messages %}
                 <div class="alert alert-{{ color }} alert-dismissible fade show text-center" role="alert">
                     {{ message }}
