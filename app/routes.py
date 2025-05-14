@@ -63,7 +63,7 @@ def forecast():
 @app.route('/logout')
 def logout():
     logout_user()
-    flash('You have been logged out.', 'warning')
+    flash('You have been logged out.', 'bg-warning')
     return redirect(request.referrer)
 
 def handle_login_post():
@@ -73,11 +73,11 @@ def handle_login_post():
             sa.select(User).where(User.username == form.username.data))
         # failed login
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password', 'danger')
+            flash('Invalid username or password', 'bg-danger')
             return redirect(request.path)
         # successful login
         login_user(user)
-        flash(f'Welcome back, {form.username.data} !', 'success')
+        flash(f'Welcome back, {form.username.data} !', 'bg-success')
         return redirect(request.path)
     else:
         errors = []
@@ -89,7 +89,7 @@ def handle_login_post():
                 msg = f"{errors[0]} is required."
             else:
                 msg = f"{', '.join(errors[:-1])} and {errors[-1]} are required."
-            flash(msg.capitalize(), 'danger')
+            flash(msg.capitalize(), 'bg-danger')
     return None
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -104,7 +104,7 @@ def register():
         db.session.commit()
         # Success registration
         login_user(user)        # Auto login
-        flash(f'Hi {form.username.data}, welcome to Price Trend !', 'success')
+        flash(f'Hi {form.username.data}, welcome to Price Trend !', 'bg-success')
         return redirect(request.referrer)
     else:
         empty_errors = []
@@ -121,10 +121,10 @@ def register():
                 msg = f"{empty_errors[0]} is required."
             else:
                 msg = f"{', '.join(empty_errors[:-1])} and {empty_errors[-1]} are required."
-            flash(msg.capitalize(), 'danger')
+            flash(msg.capitalize(), 'bg-danger')
         
         for err in other_errors:
-            flash(err, 'danger')
+            flash(err, 'bg-danger')
     return redirect(request.referrer)
 
 # may should be moved to api_routes.py and access via localhost:5000/api/forecast-data ?
