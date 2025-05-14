@@ -1,31 +1,43 @@
 {% extends "modal.html" %}
 
 {% block modal_content %}
-    <div class="modal-header">
-        <h5 class="modal-title">Share</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-    </div>
-    <div class="modal-body">
-        <form id="shareForm">
-            <!-- get product id -->
-            <div class="mb-3">
-                <label for="product-id" class="form-label">Input product ID:</label>
-                <input type="number" class="form-control" id="product-id" placeholder="Enter product ID" required>
-            </div>
+  <div class="modal-header">
+    <h5 class="modal-title">Share</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+  </div>
+  <div class="modal-body">
+    <!-- sender_id on the form -->
+    <form id="shareForm" data-sender-id="{{ current_user.id }}">
+      <!-- product dropdown -->
+      <div class="mb-3">
+        <label for="product-select" class="form-label">Select product:</label>
+        <select class="form-select" id="product-select" required>
+          <option value="">Loading…</option>
+        </select>
+      </div>
 
-            <!-- get sender id -->
-            <div class="mb-3">
-                <label for="sender-id" class="form-label">Input sender's user ID:</label>
-                <input type="number" class="form-control" id="sender-id" placeholder="Enter sender's user ID" required>
-            </div>
-
-            <!-- get receiver id -->
-            <div class="mb-3">
-                <label for="receiver-id" class="form-label">Input receiver's user ID:</label>
-                <input type="number" class="form-control" id="receiver-id" placeholder="Enter receiver's user ID" required>
-            </div>
-            <!-- Submit button -->
-            <button type="submit" class="btn btn-primary" id="shareButton">Share</button>
-        </form>
+     <div class="mb-3">
+        <label for="receiver-input" class="form-label">Receiver user ID(s) (comma-separated):</label>
+        <input type="text"
+            class="form-control"
+            id="receiver-input"
+            placeholder="e.g. 123, 456, 789">
+        <div class="form-text">Enter one or more user IDs, separated by commas</div>
     </div>
+
+      <!-- share through email -->
+      <div class="mb-3">
+        <label for="email-input" class="form-label">Or share via email:</label>
+        <input type="text" class="form-control" id="email-input" placeholder="a@b.com, c@d.com">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Share</button>
+    </form>
+  </div>
+
+  <!-- Toast 容器 -->
+  <div id="toastContainer" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11;"></div>
+
+  {# make sure data-sender-id loaded #}
+  <script src="{{ url_for('static', filename='js/share.js') }}"></script>
 {% endblock %}
