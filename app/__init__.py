@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from app.db_models import db, login, User, Merchant, Upload, Product, PriceData, Share
-from app.routes import view_bp
+from app.view_routes import view_bp
 from app.api_routes import api_bp
 from datetime import date
 from sqlalchemy import inspect

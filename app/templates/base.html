@@ -107,22 +107,10 @@
         </nav>
     </div>
     <!-- flash message area -->
-    {# {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-            <!-- Each flash message appears in its own alert box -->
-            {% for color, message in messages %}
-                <div class="alert alert-{{ color }} alert-dismissible fade show text-center" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %} #}
-    {% set _msgs = get_flashed_messages() %}
     <div id="toastContainer"
         class="toast-container position-fixed top-0 end-0 p-3"
         style="z-index:11000;"
-        data-flashed='{{ _msgs | tojson | escape }}'></div>
+        data-flashed='{{ get_flashed_messages(with_categories=True) | tojson | escape }}'></div>
     <!-- Main content -->
     <div class="bd-helper my-3">
         {% block content %}
