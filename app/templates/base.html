@@ -41,7 +41,7 @@
         <nav class="navbar rounded navbar-expand-md bg-light justify-content-center">
             <div class="container-fluid">
                 <!-- Website name linking to homepage -->
-                <a class="navbar-brand" href="{{ url_for('index') }}">
+                <a class="navbar-brand" href="{{ url_for('view.index') }}">
                     <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" style="width:40px;" class="rounded-pill">
                     Price Trend
                 </a>
@@ -52,7 +52,7 @@
                 <!-- Navigation Menu -->
                 <div class="collapse navbar-collapse" id="collapNavbar">
                     <!-- Search bar-->
-                    <form class="d-flex w-75 m-auto" action="{{ url_for('product') }}" method="get">
+                    <form class="d-flex w-75 m-auto" action="{{ url_for('view.product') }}" method="get">
                         <input class="form-control me-2" id="search-input" type="search" placeholder="Search">
                         <button class="btn btn-outline-success" type="submit">
                             <i class="bi bi-search"></i>
@@ -71,7 +71,7 @@
                         </li>
                         {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('logout') }}">
+                            <a class="nav-link" href="{{ url_for('view.logout') }}">
                                 Logout
                             </a>
                         </li>
