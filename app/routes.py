@@ -1,14 +1,14 @@
-
-from flask import render_template, redirect, flash, request, jsonify, g, send_from_directory
+from flask import Blueprint, render_template, redirect, flash, request, jsonify, g, send_from_directory
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from datetime import datetime, timedelta
-from app import app, db
-from app.db_models import User
+from app.db_models import db, User
 from app.forms import LoginForm, RegistrationForm
 import os
 
-@app.before_request
+view_bp = Blueprint('view', __name__)
+
+@view_bp.before_request
 def before_request():
     if request.accept_mimetypes.accept_html:
         g.login_form = LoginForm()
@@ -18,7 +18,8 @@ def before_request():
 # TODO: Add new file for context_processor and import here!
 # context_processor has been added because we need to reload all the notifications for the users everytime a new route has been called.
 # Every time a new route is called the injector will be called! 
-@app.context_processor
+
+@view_bp.context_processor
 def inject_notifications():
     notifications = [
         {"sender": "Kushan", "product": "TimTam", "message": "Price dropped at Coles!"},
@@ -29,26 +30,26 @@ def inject_notifications():
     ]
     return dict(notifications=notifications)
 
-@app.route('/', methods=['GET', 'POST'])
+@view_bp.route('/', methods=['GET', 'POST'])
 def index():
     result = handle_login_post()
     if result:
         return result
     return render_template('index.html', login_form=g.login_form, register_form=g.register_form)
 
-@app.route('/favicon.ico')
+@view_bp.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+                            'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-@app.route('/product', methods=['GET', 'POST'])
+@view_bp.route('/product', methods=['GET', 'POST'])
 def product():
     result = handle_login_post()
     if result:
         return result
     return render_template('product.html', login_form=g.login_form)
 
-@app.route('/forecast-prices', methods=['GET', 'POST'])
+@view_bp.route('/forecast-prices', methods=['GET', 'POST'])
 def forecast():
     result = handle_login_post()
     if result:
@@ -56,7 +57,7 @@ def forecast():
     return render_template('forecast-prices.html', login_form=g.login_form)
 
 @login_required
-@app.route('/logout')
+@view_bp.route('/logout')
 def logout():
     logout_user()
     flash('You have been logged out.', 'warning')
@@ -88,7 +89,7 @@ def handle_login_post():
             flash(msg.capitalize(), 'danger')
     return None
 
-@app.route('/register', methods=['GET', 'POST'])
+@view_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(request.referrer)
@@ -124,7 +125,7 @@ def register():
     return redirect(request.referrer)
 
 # may should be moved to api_routes.py and access via localhost:5000/api/forecast-data ?
-@app.route('/forecast-data')
+@view_bp.route('/forecast-data')
 def forecast_data():
 
     # TODO: Replace with api response
