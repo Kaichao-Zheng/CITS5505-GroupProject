@@ -9,10 +9,10 @@ from app.db_models import db, Product, Merchant, PriceData, Share, User
 from app.forms import RegistrationForm
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
-
-from app.db_models import db, Product, Merchant, PriceData, Share, User
 from app.utils import allowed_file
 import csv, os, io
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from collections import defaultdict
 
 api_bp = Blueprint('api', __name__)
 
@@ -83,15 +83,51 @@ def retrieve_product_data():
 
 @api_bp.route('/share', methods=['POST'])
 def insert_share():
-    data = request.get_json()
-    new_share = Share(
-        product_id=data['product_id'],
-        sender_id=data['sender_id'],
-        receiver_id=data['receiver_id']
-    )
-    db.session.add(new_share)
-    db.session.commit()
-    return jsonify({"status": "shared"})
+    data         = request.get_json(force=True)
+    product_id   = data.get('product_id')
+    sender_id    = data.get('sender_id')
+    receiver_ids = data.get('receiver_ids', [])
+    emails       = data.get('emails', [])
+
+    shares_to_add = []
+    skipped_emails = []
+
+    # 1. Add shares for each receiver ID
+    for rid in receiver_ids:
+        shares_to_add.append(
+            Share(product_id=product_id,
+                  sender_id=sender_id,
+                  receiver_id=rid)
+        )
+
+    # 2. Lookup users by email; add share if user exists, otherwise skip
+    for email in emails:
+        user = User.query.filter_by(email=email).first()
+        if user:
+            shares_to_add.append(
+                Share(product_id=product_id,
+                      sender_id=sender_id,
+                      receiver_id=user.id)
+            )
+        else:
+            skipped_emails.append(email)
+
+    # 3. Bulk insert into database
+    try:
+        if shares_to_add:
+            db.session.add_all(shares_to_add)
+            db.session.commit()
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify(message='Database error', detail=str(e)), 500
+
+    # 4. Return result, including any skipped emails
+    result = {'status': 'shared'}
+    if skipped_emails:
+        result['skipped_emails'] = skipped_emails
+
+    return jsonify(result), 201
+
 
 #The profile page is not developed yet.
 @api_bp.route('/shared/<int:user_id>', methods=['GET'])
@@ -108,27 +144,29 @@ def get_shared_data(user_id):
         })
     return jsonify(result)
 
-@api_bp.route('/api/price_trend/<int:product_id>', methods=['GET'])
+@api_bp.route('/price_trend/<int:product_id>', methods=['GET'])
 def get_price_trend(product_id):
-    # search for the product in the database 
-    price_data = PriceData.query.filter_by(product_id=product_id).order_by(PriceData.date).all()
-    
-    if not price_data:
-        return jsonify({"error": "No data found for the given product_id"}), 404
+        #all price data for the product, including merchant info
+    price_entries = db.session.query(PriceData, Merchant.name)\
+        .join(Merchant, PriceData.merchant_id == Merchant.id)\
+        .filter(PriceData.product_id == product_id)\
+        .order_by(PriceData.date.asc())\
+        .all()
 
-    labels = [entry.date.strftime('%Y-%m-%d') for entry in price_data] 
-    prices = [entry.price for entry in price_data] 
-    # building the dataset for the chart as rrequired by Chart.js
-    datasets = [
-        {
-            "label": f"Price Trend for Product {product_id}",
-            "data": [{"date": label, "value": price} for label, price in zip(labels, prices)],
-            "borderColor": "green",  
-            "fill": False,
-            "tension": 0.2
-        }
+    #organize data as per merchant name
+    merchant_data = defaultdict(list)
+    for price, merchant_name in price_entries:
+        merchant_data[merchant_name].append({
+            'date': price.date.strftime('%Y-%m-%d'),
+            'value': price.price
+        })
+
+    # Final format
+    result = [
+        {'label': merchant_name, 'data': data}
+        for merchant_name, data in merchant_data.items()
     ]
-    return jsonify(datasets)
+    return jsonify(result)
 
 @api_bp.route('/forecast-data', methods=['GET'])
 def forecast_data():
