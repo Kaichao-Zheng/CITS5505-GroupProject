@@ -1,5 +1,7 @@
 {% extends "modal.html" %}
 
+{% block modal_dialog_classes %}modal-lg{% endblock %}
+
 {% block modal_content %}
 <div class="modal-header">
     <h2>Forecast Line Chart</h2>
@@ -9,6 +11,7 @@
     <div class="section-box" style="height: 100%;">
         <p id="trendModalProductName"></p>
         <canvas id="forecast1"></canvas>
+        <canvas id="myCombinedForecastChart"></canvas>
     </div>
 </div>
 {% endblock %}
