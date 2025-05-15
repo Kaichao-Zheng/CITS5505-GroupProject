@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, flash, request, jsonify, g, send_from_directory
+from flask import Blueprint, render_template, redirect, flash, request, jsonify, g, send_from_directory, current_app
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from datetime import datetime, timedelta
@@ -10,9 +10,9 @@ view_bp = Blueprint('view', __name__)
 
 @view_bp.before_request
 def before_request():
+    g.login_form = LoginForm()
+    g.register_form = RegistrationForm()
     if request.accept_mimetypes.accept_html:
-        g.login_form = LoginForm()
-        g.register_form = RegistrationForm()
         print("Init login_form and register_form")
 
 # TODO: Add new file for context_processor and import here!
@@ -32,28 +32,28 @@ def inject_notifications():
 
 @view_bp.route('/', methods=['GET', 'POST'])
 def index():
-    result = handle_login_post()
-    if result:
-        return result
+    redirect = handle_login_post()
+    if redirect:
+        return redirect
     return render_template('index.html', login_form=g.login_form, register_form=g.register_form)
 
 @view_bp.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
+    return send_from_directory(os.path.join(current_app.root_path, 'static'),
                             'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @view_bp.route('/product', methods=['GET', 'POST'])
 def product():
-    result = handle_login_post()
-    if result:
-        return result
+    redirect = handle_login_post()
+    if redirect:
+        return redirect
     return render_template('product.html', login_form=g.login_form)
 
 @view_bp.route('/forecast-prices', methods=['GET', 'POST'])
 def forecast():
-    result = handle_login_post()
-    if result:
-        return result
+    redirect = handle_login_post()
+    if redirect:
+        return redirect
     return render_template('forecast-prices.html', login_form=g.login_form)
 
 @login_required
