@@ -11,3 +11,4 @@ class DeploymentConfig(Config):
 class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
     TESTING = True              # unittests rely on testing mode
+    WTF_CSRF_ENABLED = False    # CSRF will interference with testing form submissions
