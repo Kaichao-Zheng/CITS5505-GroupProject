@@ -1,13 +1,7 @@
-
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_login import UserMixin, LoginManager
+from app import db, login
+from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-
-db = SQLAlchemy()
-migrate = Migrate()
-login = LoginManager()
 
 # Association Table: Merchant <-> Product (Many-to-Many)
 merchant_products = db.Table('merchant_products',
