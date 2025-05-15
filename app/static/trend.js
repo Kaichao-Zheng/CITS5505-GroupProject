@@ -33,5 +33,13 @@ const newHandleEvent = (data) => {
                 label: '7-Day Forecast',
                 borderColor: 'green'
             });
+            renderCombinedForecastChart({
+                targetId: 'myCombinedForecastChart', // Use a new ID or the same if replacing
+                datasets: data,
+                numPredictionPoints: 1,             // Predict 5 future points
+                forecastColor: '#E83E8C',           // A nice pink
+                aggregatedActualColor: '#BDBDBD',   // A light grey for the aggregated actuals
+                tension: 0.1                        // Slightly less curve
+            });
         });
 }
