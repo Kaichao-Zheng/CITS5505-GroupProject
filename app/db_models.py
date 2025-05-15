@@ -47,6 +47,7 @@ class PriceData(db.Model):
     __tablename__ = 'price_data'
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    merchant_id = db.Column(db.Integer, db.ForeignKey('merchant.id'), nullable=True)
     price = db.Column(db.Float, nullable=False)
     date = db.Column(db.Date, nullable=False)
 

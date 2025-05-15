@@ -1,24 +1,36 @@
 {% extends "modal.html" %}
 
+{% block modal_dialog_classes %}modal-xl{% endblock %}
+
 {% block modal_content %}
     <div class="modal-header">
         <h5 class="modal-title">Upload</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>
     <div class="modal-body">
-        <form>
+        <div id="uploadModalFormId" class="form">
             <!-- Merchant dropdown menu -->
             <div class="mb-3">
-                <select class="form-select" name="merchantName">
+                <select class="form-select" name="merchantName" id="merchantSelect" required>
+                    <option value="">Select a merchant...</option>
+                    {% for merchant in merchants %}
+                        <option value="{{ merchant.id }}">{{ merchant.name }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <!-- File upload area -->
             <div class="mb-3 position-relative border rounded bg-light text-center py-5">
-                <label for="fileUpload" class="form-label text-muted">Drop your CSV file here, or click to browse for it.</label>
-                <input type="file" accept=".csv" class="form-control position-absolute top-0 start-0 w-100 h-100 opacity-0">
+                <label id="uploadTextDescription" for="fileUpload" class="form-label text-muted">Drop your CSV file here, or click to browse for it.</label>
+                <input id="fileUpload" type="file"onchange="onLoadCSV(event)" accept=".csv" class="form-control position-absolute top-0 start-0 w-100 h-100 opacity-0">
             </div>
+
+            <div id="uploadTableContainer">
+            </div>
+
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary">Upload</button>
-        </form>
+            <div id="uploadButtonContainer">
+            </div>
+
+        </div>
     </div>
 {% endblock %}

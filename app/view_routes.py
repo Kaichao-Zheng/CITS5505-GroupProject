@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, flash, request, jsonify,
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from datetime import datetime, timedelta
-from app.db_models import db, User
+from app.db_models import db, User, Merchant
 from app.forms import LoginForm, RegistrationForm
 import os
 
@@ -29,6 +29,11 @@ def inject_notifications():
         {"sender": "Alex", "product": "iPhone", "message": "JB Hi-Fi has deals!"},
     ]
     return dict(notifications=notifications)
+
+@view_bp.context_processor
+def request_mechants():
+    merchants = Merchant.query.all()
+    return dict(merchants=merchants)
 
 @view_bp.route('/', methods=['GET', 'POST'])
 def index():
@@ -125,7 +130,7 @@ def register():
     return redirect(request.referrer)
 
 # may should be moved to api_routes.py and access via localhost:5000/api/forecast-data ?
-@view_bp.route('/forecast-data')
+@view_bp.route('/forecast-data', methods=['GET'])
 def forecast_data():
 
     # TODO: Replace with api response
