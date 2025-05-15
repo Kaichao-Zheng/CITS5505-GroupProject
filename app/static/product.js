@@ -22,7 +22,8 @@ function loadMore(count = 6) {
                             href="#"
                             data-bs-toggle="modal"
                             data-bs-target="#trendModal"
-                            data-product-id="${products[i].id}">  <!-- Add product ID -->
+                            data-product-id="${products[i].product_id}"
+                            onclick="handleTrendButtonClick('${products[i].product_id}')">
                             View Trend
                         </a>
                         <p class="mt-1 mb-0 text-white-50 small">&lt; Vendor with lowest price NOW &gt;</p>

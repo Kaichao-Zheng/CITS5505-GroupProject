@@ -1,3 +1,9 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('toastContainer');
+  const raw = container?.dataset.flashed || '[]';   // default to empty array 
+  const messages = JSON.parse(raw);
+  if (messages.length) displayToastMessage(messages);
+});
 const displayToastMessage = (messages) => {
     const container = document.getElementById('toastContainer');
   

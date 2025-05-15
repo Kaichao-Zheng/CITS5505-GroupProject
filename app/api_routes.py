@@ -10,8 +10,9 @@ from app.forms import RegistrationForm
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
 from app.utils import allowed_file
-import csv, os
+import csv, os, io
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from collections import defaultdict
 
 api_bp = Blueprint('api', __name__)
 
@@ -24,32 +25,32 @@ def get_all_merchants():
 def upload_csv():
     if 'file' not in request.files:
         return jsonify({"error": "No file part"}), 400
-
     file = request.files['file']
 
+    merchant_id = request.form.get('merchant_id')
+    if not merchant_id:
+        return jsonify({"error": "Missing merchant_id"}), 400
+
     if file and file.filename.endswith('.csv'):
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-        file.save(file_path)
-
-        # parse the CSV file and insert data into the database 
         try:
-            with open(file_path, 'r') as csvfile:
-                csvreader = csv.DictReader(csvfile) 
-                for row in csvreader:
-                    product_id = row['product_id']
-                    price = float(row['price'])
-                    date = datetime.strptime(row['date'], '%Y-%m-%d').date()
-                    new_price = PriceData(product_id=product_id, price=price, date=date)
-                    db.session.add(new_price)
-                
-                db.session.commit()  
+            stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
+            csvreader = csv.DictReader(stream)
 
+            for row in csvreader:
+                product_id = row['product_id']
+                price = float(row['price'])
+                date = datetime.strptime(row['date'], '%Y-%m-%d').date()
+                new_price = PriceData(
+                    product_id=product_id,
+                    price=price,
+                    date=date,
+                    merchant_id=merchant_id
+                )
+                db.session.add(new_price)
+            db.session.commit()  
             return jsonify({"message": "File uploaded and data inserted successfully."}), 200
-        
         except Exception as e:
             return jsonify({"error": str(e)}), 500
-    
     return jsonify({"error": "Invalid file type, only CSV files are allowed."}), 400
 
 @api_bp.route('/upload_image', methods=['POST'])
@@ -143,27 +144,29 @@ def get_shared_data(user_id):
         })
     return jsonify(result)
 
-@api_bp.route('/api/price_trend/<int:product_id>', methods=['GET'])
+@api_bp.route('/price_trend/<int:product_id>', methods=['GET'])
 def get_price_trend(product_id):
-    # search for the product in the database 
-    price_data = PriceData.query.filter_by(product_id=product_id).order_by(PriceData.date).all()
-    
-    if not price_data:
-        return jsonify({"error": "No data found for the given product_id"}), 404
+        #all price data for the product, including merchant info
+    price_entries = db.session.query(PriceData, Merchant.name)\
+        .join(Merchant, PriceData.merchant_id == Merchant.id)\
+        .filter(PriceData.product_id == product_id)\
+        .order_by(PriceData.date.asc())\
+        .all()
 
-    labels = [entry.date.strftime('%Y-%m-%d') for entry in price_data] 
-    prices = [entry.price for entry in price_data] 
-    # building the dataset for the chart as rrequired by Chart.js
-    datasets = [
-        {
-            "label": f"Price Trend for Product {product_id}",
-            "data": [{"date": label, "value": price} for label, price in zip(labels, prices)],
-            "borderColor": "green",  
-            "fill": False,
-            "tension": 0.2
-        }
+    #organize data as per merchant name
+    merchant_data = defaultdict(list)
+    for price, merchant_name in price_entries:
+        merchant_data[merchant_name].append({
+            'date': price.date.strftime('%Y-%m-%d'),
+            'value': price.price
+        })
+
+    # Final format
+    result = [
+        {'label': merchant_name, 'data': data}
+        for merchant_name, data in merchant_data.items()
     ]
-    return jsonify(datasets)
+    return jsonify(result)
 
 @api_bp.route('/forecast-data', methods=['GET'])
 def forecast_data():
@@ -180,11 +183,19 @@ def get_price_forecast(product_id):
     img = generate_forecast_chart(forecast_dates, forecast_prices) 
     return send_file(img, mimetype='image/png')'''
 
-#Where to use this function?
 @api_bp.route('/product/exists/<int:product_id>', methods=['GET'])
 def check_product_exists(product_id):
-    exists = Product.query.get(product_id) is not None
-    return jsonify({"exists": exists})
+    product = Product.query.get(product_id)
+    if product:
+        return jsonify({
+            "exists": True,
+            "product": {
+                "id": product.id,
+                "name": product.name
+            }
+        })
+    else:
+        return jsonify({"exists": False, "product": None})
 
 #Where to use this function?
 @api_bp.route('/product/<int:product_id>/data', methods=['GET'])
