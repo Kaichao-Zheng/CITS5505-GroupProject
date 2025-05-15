@@ -2,151 +2,21 @@
 
 ## Intro
 
-This `README.md` will be replaced by another `README.md` to explain the project, as required by the project specification.
+This project is a Flask-based platform for product price trend analysis and sharing. It aims to help users track the historical prices and trends of products from major retailers (such as Coles, Woolworths, JB Hi-Fi), and provides price forecasting. Users can register, log in, upload product price data, browse and analyze price trends, and share product information or trends with other users through the platform. The platform also supports product image uploads, data visualization, and multi-user collaboration.
 
-⚠️**Please always work on `yourOwnBranch`, NOT on the `origin/main` branch, which should only be used for merging.**
 
-## Schedule
 
-| Progress | Week        | Event                | Note                                                         |
-| -------- | ----------- | -------------------- | ------------------------------------------------------------ |
-|          | Week 6      | Project Release      |                                                              |
-|          | Week 7      | First Meeting        | at 3pm, on 08 April                                          |
-|          | Week 8      |                      |                                                              |
-|          | Study Break | Second Meeting       | at 11am, on 22 April                                         |
-|          | Week 9      | GUI Presentation     | [at 2:05pm, on 1st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
-| ⌛        | Week 10     | Feature Presentation | [at 2:05pm, on 8st May, in MATH 123B](https://uniwa-my.sharepoint.com/:x:/g/personal/00112652_uwa_edu_au/EQXmSIthQ1FMjJQ1KADV7tUBN0DVQKh_OwTA4efE24TfrQ?e=vjnEQB) |
-|          | Week 11     | Project Submission   | [at 11:59pm, on 16 May](https://lms.uwa.edu.au/webapps/blackboard/content/listContent.jsp?course_id=_101669_1&content_id=_4251653_1&mode=reset) |
-|          | Week 12     | Group Presentation   |                                                              |
+## Main Features and Design
 
-## Installation
-Install the required dependency
+- **Data Collection & Management**: Supports batch uploading of product price data via CSV files, with automatic storage and management by the system.
+- **Price Trend Analysis**: Generates historical price charts and future price forecasts for each product to help users make better purchasing decisions.
+- **User Interaction**: Allows user registration, login, and sharing of products and their price trends to facilitate information exchange.
+- **Multi-Retailer Support**: Integrates data from multiple retailers such as Coles, Woolworths, and JB Hi-Fi for easy comparison.
+- **Extensibility**: Uses the Flask application factory pattern to facilitate future feature expansion and maintenance.
 
-```bash
-pip install -r requirements.txt
-```
+This platform is suitable for consumers and data analysis enthusiasts who want to monitor price changes, compare prices across retailers, and predict future price trends.
 
-Update `requirements.txt` file after new dependency is added
 
-```bash
-pip freeze > requirements.txt
-```
-
-## Database Operations
-
-**Dependency**
-
-```bash
-pip install flask
-pip install flask-sqlalchemy
-pip install flask-migrate
-pip install python-dotenv
-```
-
-**Version Control**
-
-* Apply newest schema version
-
-  ```
-  flask db upgrade
-  ```
-
-* Record schema change in `db_model.py`
-
-  ```bash
-  flask db migrate -m "commit_messages"
-  ```
-
-* Check current version
-
-  ```bash
-  flask db current
-
-* Check history versions
-
-  ```bash
-  flask db history
-  ```
-
-* Roll back
-
-  ```bash
-  flask db downgrade <version_hash>
-  ```
-
-**GUI Access**
-
-⭐`SQLite Viewer` is a light-weight graphical extension in VSCode for browsing SQLite.
-
-**Manual Operations**
-
-Run Flask Shell in terminal
-
-```bash
-flask shell
-```
-
-Insert the first row in user table
-
-```bash
->>> u = User(id='1', employee_id='001', merchant_id='001', user_type='Merchant', username='kai', email='CITS5505@student.uwa', password_hash='asdfghjkl')
->>> db.session.add(u)
->>> db.session.commit()
-```
-
-Modify field
-
-```bash
->>> user = User.query.get(user_id)
->>> user.username = 'new_name'
->>> db.session.commit()
-```
-
-Query: `SELECT * FROM user;`
-
-```bash
->>> query = sa.select(User)
->>> users = db.session.scalars(query).all()
->>> Users
-[<User 1>]
-```
-
-```bash
->>> users[0].username
-'kai'
-```
-
-Delete the user `where id='1'`
-
-```bash
->>> user = User.query.get(1)
->>> db.session.delete(user)
->>> db.session.commit()
-```
-
-## High-Priority Tasks
-
-- [x] Convert hardcoded HTML into Jinja blocks
-- [x] Design **JavaScript** to interact backend routes defined by `@app.route()` or `@api_bp.route()`
-- [ ] Insufficient price data in `site.db`
-- [ ] To be continued
-
-## Known Challenges
-
-- [x] Dynamic CSR in search result
-- [x] Line chart visualization
-- [ ] Price prediction and visualization
-- [ ] Reuse search functionality in "share user selection"
-- [ ] [Optional] Real-time fuzzy search
-
-## Tech Stacks
-
-* HTML
-* CSS + Bootstrap
-* JavaScript + jQuery
-* Flask (SSR)
-* AJAX (CSR)
-* SQL-Alchemy (ORM for application-database interaction)
 
 ## Group Members
 
@@ -155,4 +25,99 @@ Delete the user `where id='1'`
 | 24141207 | Kai Zheng         | [Kaichao-Zheng](https://github.com/Kaichao-Zheng)            |
 | 24074951 | Tony Chu          | [TonyChyu](https://github.com/TonyChyu)                      |
 | 24112359 | Chang Liu         | [ChangLiu-doc](https://github.com/ChangLiu-doc)              |
-| 24205163 | Kushan Jayasekera | [kushanuwa](https://github.com/kushanuwa)<br />[kushjayz](https://github.com/kushjayz) |
+| 24205163 | Kushan Jayasekera | [kushanuwa](https://github.com/kushanuwa)<br/>[kushjayz](https://github.com/kushjayz) |
+
+
+
+## Installation
+
+⚠️**Please always work on `yourOwnBranch`, NOT on the `origin/main` branch, which should only be used for merging.**
+
+**How to Run the Application**
+
+1. **Install the required dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Environment Variable Configuration**
+   
+   - Ensure there is a `.flaskenv` file in the project root directory, with content like:
+     ```
+     FLASK_APP=main.py
+     FLASK_ENV=development
+     FLASK_DEBUG=1
+     ```
+   - To customize the database path, edit the configuration in `instance/config.py`.
+   
+3. **Initialize the Database**
+   - For first-time setup or after database schema changes, run:
+     ```bash
+     flask db upgrade
+     ```
+
+4. **Start the Application**
+   
+   - In the project root directory, run:
+     ```bash
+     flask run
+     ```
+   - The default access address is [http://127.0.0.1:5000](http://127.0.0.1:5000)
+   
+5. **Test Account**
+   - You can register a test account on the registration page.
+
+⚠️**If you encounter issues, please check dependencies, database configuration, and port usage.**
+
+
+
+## How to Run Application Tests
+
+This project includes automated unit tests based on Python's unittest framework, located in `test/unitTests.py`.
+
+1. **Ensure Dependencies Are Installed**
+   
+   - All required dependencies are listed in `requirements.txt`.
+   
+2. **Run Test Commands**
+   - To run the main test file in the project root directory:
+     ```bash
+     python -m unittest test/unitTests.py
+     ```
+     
+     If the tests run successfully, you will see output similar to the following in your terminal:
+     
+     ```bash
+     Test module initialized!
+     ....
+     ----------------------------------------------------------------------
+     Ran 4 tests in 0.860s
+     
+     OK
+     ```
+     
+   - Or to run all tests:
+     ```bash
+     python -m unittest discover -s test
+     ```
+   
+3. **Test Environment Notes**
+   - Tests automatically use the `TestConfig` configuration with an in-memory database, so production data is not affected.
+   - Each test case automatically initializes and cleans up the database environment.
+
+**To add more test cases, extend `test/unitTests.py` as needed.**
+
+
+
+## Tech Stacks
+
+* HTML
+* CSS
+* JavaScript
+* Bootstrap
+* jQuery
+* Flask (SSR)
+* AJAX (CSR)
+* SOLite interfaced to via the SQLAlchemy package
+
