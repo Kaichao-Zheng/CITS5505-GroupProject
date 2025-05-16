@@ -6,3 +6,6 @@ venv/
 
 # Ignore the backup files of .drawio
 *.bkp
+
+# in-memory temp database
+*:memory
