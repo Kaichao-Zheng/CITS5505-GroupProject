@@ -8,4 +8,4 @@ flaskApp = create_app(DeploymentConfig)
 migrate.init_app(flaskApp, db)
 
 '''Switch to run a mock database in-memory for testing'''
-# testApp = create_app(TestConfig)                  # flask-migrate is unnecessary when testing with in-memory database
+# testApp = create_app(TestConfig)
