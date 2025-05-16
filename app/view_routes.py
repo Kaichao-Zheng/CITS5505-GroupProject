@@ -75,7 +75,7 @@ def handle_login_post():
             sa.select(User).where(User.username == form.username.data))
         # failed login
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password', 'bg-danger')
+            flash('Invalid username or password.', 'bg-danger')
             return redirect(request.path)
         # successful login
         login_user(user)

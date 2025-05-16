@@ -127,7 +127,7 @@ class UnitTests(unittest.TestCase):
             response = c.post('/', headers={'Referer': '/'}, data=login_form, follow_redirects=True)
             self.assertEqual(response.status_code, 200)
             self.assertFalse(current_user.is_authenticated)
-            self.assertIn(b'Invalid username or password', response.data)
+            self.assertIn(b'Invalid username or password.', response.data)
         
         # login fails with empty fields
         login_form = {

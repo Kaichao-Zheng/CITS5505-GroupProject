@@ -9,6 +9,6 @@ class DeploymentConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///site.db'
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory'
     TESTING = True              # unittests rely on testing mode
     WTF_CSRF_ENABLED = False    # CSRF will interference with testing form submissions
