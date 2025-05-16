@@ -115,7 +115,7 @@
     </div>
     <!-- flash message area -->
     <div id="toastContainer"
-        class="toast-container position-fixed top-0 end-0 p-3"
+        class="toast-container position-fixed top-0 start-50 translate-middle-x mt-2 p-3 "
         style="z-index:11000;"
         data-flashed='{{ get_flashed_messages(with_categories=True) | tojson | escape }}'></div>
     <!-- Main content -->
