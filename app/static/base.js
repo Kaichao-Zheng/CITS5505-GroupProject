@@ -10,7 +10,6 @@ $(function() {
       .done(notifs => {
         notifs.forEach(n => {
           displayToastMessage([
-            'bg-info',
             `You have a new share from ${n.sender_name}: ${n.product_name}`
           ]);
         });
