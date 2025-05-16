@@ -13,7 +13,7 @@ $(document).ready(() => {
         .append('<option value="">Select a product</option>');
       products.forEach(p =>
         $productSelect.append(
-          `<option value="${p.id}">${p.name}</option>`
+          `<option value="${p.product_id}">${p.name}</option>`
         )
       );
     })
@@ -47,6 +47,8 @@ $(document).ready(() => {
       receiver_ids: receiverIds,
       emails:       emailList
     };
+
+    console.log('DEBUG payload >>>', payload);
 
     $.ajax({
       url:         '/api/share',
