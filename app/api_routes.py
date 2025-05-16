@@ -84,6 +84,7 @@ def retrieve_product_data():
 @api_bp.route('/share', methods=['POST'])
 def insert_share():
     data         = request.get_json(force=True)
+    print('DEBUG /share received >>>', data)
     product_id   = data.get('product_id')
     sender_id    = data.get('sender_id')
     receiver_ids = data.get('receiver_ids', [])
