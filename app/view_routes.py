@@ -129,6 +129,18 @@ def register():
             flash(err, 'bg-danger')
     return redirect(request.referrer)
 
+@view_bp.route('/ERD', methods=['GET', 'POST'])
+def ERD():
+    return render_template('demo/ERD.html', login_form=g.login_form)
+
+@view_bp.route('/jinja', methods=['GET', 'POST'])
+def jinja():
+    return render_template('demo/jinja.html', login_form=g.login_form)
+
+@view_bp.route('/marks', methods=['GET', 'POST'])
+def marks():
+    return render_template('demo/marks.html', login_form=g.login_form)
+
 # may should be moved to api_routes.py and access via localhost:5000/api/forecast-data ?
 @view_bp.route('/forecast-data', methods=['GET'])
 def forecast_data():

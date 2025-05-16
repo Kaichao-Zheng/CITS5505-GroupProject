@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block import_CSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div>
+        <img class="rounded" style="width: 100%; height: auto;" 
+            src="{{ url_for('static', filename='img/marks.png') }}" 
+            alt="Bonus Mark Poll">
+    </div>
+{% endblock %}
