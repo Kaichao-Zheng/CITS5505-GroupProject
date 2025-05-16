@@ -64,6 +64,7 @@ class Share(db.Model):
     receiver_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
     date_shared = db.Column(db.DateTime, default=datetime.utcnow)
+    notified     = db.Column(db.Boolean, default=False)
 
     product = db.relationship('Product')
 
