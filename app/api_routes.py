@@ -130,20 +130,31 @@ def insert_share():
     return jsonify(result), 201
 
 
-#The profile page is not developed yet.
-@api_bp.route('/shared/<int:user_id>', methods=['GET'])
-def get_shared_data(user_id):
-    shares = Share.query.filter_by(receiver_id=user_id).all()
-    result = []
-    for share in shares:
-        product = Product.query.get(share.product_id)
-        sender = User.query.get(share.sender_id)
-        result.append({
-            "product_id": product.id,
-            "name": product.name,
-            "sender": sender.username
+@api_bp.route('/share/notifications', methods=['GET'])
+@login_required
+def share_notifications():
+    # Get all shares where the current user is the receiver and not yet notified
+    shares = (
+        Share.query
+             .filter_by(receiver_id=current_user.id, notified=False)
+             .order_by(Share.date_shared.asc())
+             .all()
+    )
+
+    notifs = []
+    for s in shares:
+        notifs.append({
+            "share_id":     s.id,
+            "sender_name":  s.sender.username,
+            "product_id":   s.product.id,
+            "product_name": s.product.name,
+            "date_shared":  s.date_shared.isoformat()
         })
-    return jsonify(result)
+        # mark as notified
+        s.notified = True
+
+    db.session.commit()
+    return jsonify(notifs), 200
 
 @api_bp.route('/price_trend/<int:product_id>', methods=['GET'])
 def get_price_trend(product_id):
